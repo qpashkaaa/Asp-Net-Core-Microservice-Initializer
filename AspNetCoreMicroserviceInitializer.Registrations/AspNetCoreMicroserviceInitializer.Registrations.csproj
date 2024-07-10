@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.Database\AspNetCoreMicroserviceInitializer.Database.csproj" />
+      <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.TradingDesk\AspNetCoreMicroserviceInitializer.TradingDesk.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Files\develop.env" />
+      <None Remove="Templates\docker-compose.yml" />
+      <None Remove="Templates\develop.env" />
+      <None Remove="Templates\develop.tmp" />
+      <None Remove="Templates\docker-compose.tmp" />
+    </ItemGroup>
+
+</Project>
