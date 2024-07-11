@@ -82,20 +82,22 @@ public class WebApplicationFacade
                     .Select(attr => attributeGetValueFunc(attr))
                     .FirstOrDefault();
 
-                if (typeModule != null &&
-                    _modules.Contains(typeModule.Value))
+                if (typeModule != null && 
+                    !_modules.Contains(typeModule.Value))
                 {
-                    var modelObject = JsonHelper.GetModelJObject(type);
+                    return;
+                }
 
-                    if (!jObject.ContainsKey(type.Name))
-                    {
-                        jObject[type.Name] = modelObject;
-                    }
-                    else
-                    {
-                        var existingObject = jObject[type.Name] as JObject;
-                        JsonHelper.AddMissingProperties(existingObject ?? throw new ArgumentNullException(nameof(existingObject)), modelObject);
-                    }
+                var modelObject = JsonHelper.GetModelJObject(type);
+
+                if (!jObject.ContainsKey(type.Name))
+                {
+                    jObject[type.Name] = modelObject;
+                }
+                else
+                {
+                    var existingObject = jObject[type.Name] as JObject;
+                    JsonHelper.AddMissingProperties(existingObject ?? throw new ArgumentNullException(nameof(existingObject)), modelObject);
                 }
             });
         

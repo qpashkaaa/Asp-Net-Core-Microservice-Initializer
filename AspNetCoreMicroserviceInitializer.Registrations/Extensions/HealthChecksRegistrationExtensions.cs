@@ -7,6 +7,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Settings;
+using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 
 namespace AspNetCoreMicroserviceInitializer.Registrations.Extensions;
 
@@ -21,11 +22,11 @@ internal static class HealthChecksRegistrationExtensions
     /// <remarks>
     /// Информация: 
     /// Этот метод работает с классами, которые унаследованы от интерфейса <see cref="IHealthCheck"/>.
-    /// Он с помощью рефлексии находит классы, которые реализуют интерфейс <see cref="IHealthCheck"/>, регистрирует их в DI и регистрирует их как HealthChecks.
+    /// Он с помощью рефлексии находит классы, которые реализуют интерфейс <see cref="IHealthCheck"/> и у которых есть атрибут <see cref="AutoRegisterHealthCheckAttribute"/>, регистрирует их в DI и регистрирует их как HealthChecks.
     /// 
     /// Важно:
     /// Не нужно самостоятельно регистрировать Health Checks в DI. Все выполнится автоматически.
-    /// Достаточно просто создать класс Health Check и унаследовать его от <see cref="IHealthCheck"/>. Данное расширение все сделает автоматически.
+    /// Достаточно просто создать класс Health Check и унаследовать его от <see cref="IHealthCheck"/> и присвоить атрибут <see cref="AutoRegisterHealthCheckAttribute"/>. Данное расширение все сделает автоматически.
     /// 
     /// Информация-2:
     /// Доп. параметры настраиваются конфигом appsettings. Параметры настраиваются в соответствии с моделью <see cref="HealthChecksSettings"/>.
@@ -41,7 +42,7 @@ internal static class HealthChecksRegistrationExtensions
         var serviceProvider = services.BuildServiceProvider();
         var healthChecksSettings = serviceProvider.GetRequiredService<IOptions<HealthChecksSettings>>().Value;
 
-        var assemblies = AssemblyHelper.LoadAssembliesWithSpecificType<IHealthCheck>(serviceProvider);
+        var assemblies = AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterHealthCheckAttribute>(false, serviceProvider);
 
         AssemblyHelper.FindTypesByConditionAndDoActions(
             assemblies,
@@ -79,11 +80,11 @@ internal static class HealthChecksRegistrationExtensions
     /// <remarks>
     /// Информация: 
     /// Этот метод работает с классами, которые унаследованы от интерфейса <see cref="IHealthCheck"/>.
-    /// Он с помощью рефлексии находит классы, которые реализуют интерфейс <see cref="IHealthCheck"/>, регистрирует их в DI и регистрирует их как HealthChecks.
+    /// Он с помощью рефлексии находит классы, которые реализуют интерфейс <see cref="IHealthCheck"/> и у которых есть атрибут <see cref="AutoRegisterHealthCheckAttribute"/>, регистрирует их в DI и регистрирует их как HealthChecks.
     /// 
     /// Важно:
     /// Не нужно самостоятельно регистрировать Health Checks в DI. Все выполнится автоматически.
-    /// Достаточно просто создать класс Health Check и унаследовать его от <see cref="IHealthCheck"/>. Данное расширение все сделает автоматически.
+    /// Достаточно просто создать класс Health Check и унаследовать его от <see cref="IHealthCheck"/> и присвоить атрибут <see cref="AutoRegisterHealthCheckAttribute"/>. Данное расширение все сделает автоматически.
     /// 
     /// Информация-2:
     /// Доп. параметры настраиваются конфигом appsettings. Параметры настраиваются в соответствии с моделью <see cref="HealthChecksSettings"/>.

@@ -70,10 +70,10 @@ public static class AssemblyHelper
 
         foreach (var assemblyPath in allAssemblyFiles)
         {
-            var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
-
             try
             {
+                var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
+
                 var assembly = Assembly.Load(assemblyName);
 
                 bool containsSpecificType = conditionFunction(assembly);
