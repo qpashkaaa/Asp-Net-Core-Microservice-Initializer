@@ -110,7 +110,7 @@ internal static class HealthChecksRegistrationExtensions
         }
         catch
         {
-            throw new Exception($"Не найдены классы Health Checks при регистрации зависимостей. Пожалуйста, создайте экземпляр класса, реализующий интерфейс {typeof(IHealthCheck)}.");
+            throw new Exception($"Не найдены классы Health Checks при регистрации зависимостей. Пожалуйста, создайте экземпляр класса, реализующий интерфейс {typeof(IHealthCheck)} и присвойте ему атрибут {typeof(AutoRegisterHealthCheckAttribute)}.");
         }
 
         return app;
