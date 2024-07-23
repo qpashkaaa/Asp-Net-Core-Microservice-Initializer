@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 using Newtonsoft.Json;
@@ -172,11 +171,11 @@ public class WebApplicationFacade
                     app.UseHealthChecks();
                     break;
                 case WebApplicationModules.Swagger:
-                    app.UseSwagger();
-                    app.UseSwaggerUI(c =>
+                    if (app.Environment.IsDevelopment())
                     {
-                        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Documentation");
-                    });
+                        app.UseSwagger();
+                        app.UseSwaggerUI();
+                    }
                     break;
                 case WebApplicationModules.Authorization:
                     app.UseAuthorization();
@@ -223,10 +222,7 @@ public class WebApplicationFacade
                     _builder.Services.AddDbServices();
                     break;
                 case WebApplicationModules.Swagger:
-                    _builder.Services.AddSwaggerGen(c =>
-                    {
-                        c.SwaggerDoc("Documentation", new OpenApiInfo { Title = "API Documentation", Version = "latest" });
-                    });
+                    _builder.Services.AddSwaggerGen();
                     break;
                 case WebApplicationModules.Controllers:
                     _builder.Services.AddControllers();
