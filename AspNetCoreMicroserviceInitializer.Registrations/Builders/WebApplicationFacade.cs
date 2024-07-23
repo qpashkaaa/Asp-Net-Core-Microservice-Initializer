@@ -10,6 +10,8 @@ using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using Microsoft.Extensions.Hosting;
+using AspNetCoreMicroserviceInitializer.Registrations.Models;
 
 namespace AspNetCoreMicroserviceInitializer.Registrations.Builders;
 
@@ -29,6 +31,11 @@ public class WebApplicationFacade
     private readonly WebApplicationBuilder _builder;
 
     /// <summary>
+    /// Модель для хранения методов конфигурации модулей <see cref="WebApplicationModules"/>.
+    /// </summary>
+    private readonly ConfigureActions _configureActions;
+
+    /// <summary>
     /// Конструктор фасада для настройки <see cref="WebApplication"/> и <see cref="WebApplicationBuilder"/>.
     /// </summary>
     /// <param name="builder">Преднастроенный билдер.</param>
@@ -39,6 +46,7 @@ public class WebApplicationFacade
     {
         _builder = builder ?? WebApplication.CreateBuilder();
         _modules = modules;
+        _configureActions = new ConfigureActions();
     }
     
     /// <summary>
@@ -48,6 +56,18 @@ public class WebApplicationFacade
     public WebApplicationFacade AddAdditionalModules(Action<WebApplicationBuilder> addModulesAction)
     {
         addModulesAction(_builder);
+
+        return this;
+    }
+
+    /// <summary>
+    /// Метод добавления доп. конфигурации Serilog.
+    /// </summary>
+    /// <param name="configureLogger">Метод конфигурации логгера.</param>
+    /// <remarks>Метод чтения из конфигурации и сервисов изначально добавлен в конфигурации Serilog. Добавлять его, используя этот метод не нужно.</remarks>
+    public WebApplicationFacade AddAdditionalSerilogConfiguration(Action<HostBuilderContext, IServiceProvider, LoggerConfiguration> configureLogger)
+    {
+        _configureActions.Serilog = configureLogger;
 
         return this;
     }
@@ -217,6 +237,11 @@ public class WebApplicationFacade
                         configuration
                             .ReadFrom.Configuration(context.Configuration)
                             .ReadFrom.Services(services);
+
+                        if (_configureActions.Serilog != null)
+                        {
+                            _configureActions.Serilog(context, services, configuration);
+                        }
                     });
                     break;
                 case WebApplicationModules.EnvironmentVariables:
