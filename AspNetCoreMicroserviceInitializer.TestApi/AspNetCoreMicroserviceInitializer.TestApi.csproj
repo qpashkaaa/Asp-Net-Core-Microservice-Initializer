@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestElements\AutoMappers\" />
-    <Folder Include="TestElements\Hangfire\" />
     <Folder Include="TestElements\HealthChecks\" />
     <Folder Include="TestElements\Database\" />
     <Folder Include="TestElements\Cors\" />

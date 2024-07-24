@@ -15,7 +15,7 @@ public class HangfireSettings
     ///
     /// Пример: 1.
     /// </summary>
-    public HangfireStorage StorageType { get; init; }
+    public HangfireStorage StorageType { get; init; } = HangfireStorage.InMemory;
     
     /// <summary>
     /// Строка подключения к PostgreSql для хранения данных о фоновых задачах Hangfire (заполняется, если <see cref="StorageType"/> выбран PostgreSql).

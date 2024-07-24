@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AspNetCoreMicroserviceInitializer.Registrations.Builders;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
@@ -13,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace AspNetCoreMicroserviceInitializer.Registrations.Extensions;
 
@@ -52,7 +52,7 @@ internal static class HangfireRegistrationExtensions
     {
         var hangfireSettings = builder.Configuration.GetSection(nameof(HangfireSettings)).Get<HangfireSettings>();
         
-        var configureAction = ValidateHangfireSettings(builder, hangfireSettings);
+        var configureAction = ValidateHangfireSettings(hangfireSettings);
         
         builder.Services.AddHangfire(configureAction);
 
@@ -74,8 +74,11 @@ internal static class HangfireRegistrationExtensions
     {
         var applicationServices = app.ApplicationServices;
         var serviceProvider = applicationServices as ServiceProvider ?? throw new ArgumentNullException(nameof(applicationServices));
-        
-        var hangfireDashboardSettings = serviceProvider.GetRequiredService<IOptions<HangfireDashboardSettings>>().Value;
+
+        var hangfireDashboardSettings = applicationServices
+            .GetService<IConfiguration>()?
+            .GetSection(nameof(HangfireDashboardSettings))
+            .Get<HangfireDashboardSettings>();
 
         var dashboardOptions = new DashboardOptions();
 
@@ -120,7 +123,7 @@ internal static class HangfireRegistrationExtensions
                     .FirstOrDefault(m => m.Name == nameof(AddTask))?
                     .MakeGenericMethod(type, attribute.SettingsType);
 
-                addTaskMethod?.Invoke(null, null);
+                addTaskMethod?.Invoke(null, new[ ] { app } );
             });
 
         return app;
@@ -137,7 +140,17 @@ internal static class HangfireRegistrationExtensions
         where TTaskSettings : HangfireTaskSettingsBase
     {
         var task = app.ApplicationServices.GetRequiredService<TTask>();
-        var taskSettings = app.ApplicationServices.GetRequiredService<IOptions<TTaskSettings>>().Value;
+        var test = typeof(TTaskSettings).Name;
+        var taskSettings = app.ApplicationServices
+            .GetService<IConfiguration>()?
+            .GetSection(typeof(TTaskSettings).Name)
+            .Get<TTaskSettings>();
+        
+        if (taskSettings == null)
+        {
+            throw new Exception($"В файле конфигурации не найдены настройки для задачи {typeof(TTask).Name} (task settings type: {typeof(TTaskSettings).Name}). Если элементов настроек в конфигурации нет, то заполните конфигурацию вручную или вызовите метод {nameof(WebApplicationFacade.InitBaseConfig)} у {nameof(WebApplicationFacade)} (перед вызовом метода необходимо в конструктор {nameof(WebApplicationFacade)} добавить модуль {WebApplicationModules.Settings} и присвоить модели {typeof(TTaskSettings).Name} атрибут {nameof(AutoRegisterConfigSettingsAttribute)}), заполните соответствующие данные в конфиге appsettings.json и перезапустите приложение.");
+        }
+
         var taskName = typeof(TTask).Name;
         var recurringJobOptions = new RecurringJobOptions
         {
@@ -188,7 +201,6 @@ internal static class HangfireRegistrationExtensions
     /// <param name="hangfireSettings">Модель настроек Hangfire.</param>
     /// <returns>Action для конфигурации Hangfire.</returns>
     private static Action<IGlobalConfiguration> ValidateHangfireSettings(
-        IHostApplicationBuilder builder,
         HangfireSettings? hangfireSettings = null)
     {
         if (hangfireSettings == null)
@@ -199,7 +211,7 @@ internal static class HangfireRegistrationExtensions
         switch (hangfireSettings.StorageType)
         {
             case HangfireStorage.Undefined:
-                throw new ArgumentException("В конфиге не указан тип хранилища для информации о задачах Hangfire", nameof(hangfireSettings.StorageType));
+                throw new ArgumentException($"В конфиге не указан тип хранилища для информации о задачах Hangfire. Если элементов настроек в конфигурации нет, то заполните конфигурацию вручную или вызовите метод {nameof(WebApplicationFacade.InitBaseConfig)} у {nameof(WebApplicationFacade)}, заполните соответствующие данные в конфиге appsettings.json и перезапустите приложение.", nameof(hangfireSettings.StorageType));
             case HangfireStorage.PostgreSql:
                 if (string.IsNullOrEmpty(hangfireSettings.PostgreSqlConnectionString))
                 {

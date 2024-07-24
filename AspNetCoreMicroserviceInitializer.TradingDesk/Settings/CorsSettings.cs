@@ -15,14 +15,14 @@ public class CorsSettings
     ///
     /// Пример: true/false.
     /// </summary>
-    public bool EnableCors { get; init; }
+    public bool EnableCors { get; init; } = true;
 
     /// <summary>
     /// Наименование политики Cors.
     ///
     /// Пример: AllowAccessFrontendQueries.
     /// </summary>
-    public string? PolicyName { get; init; }
+    public string? PolicyName { get; init; } = "AllowAccessFrontendQueries";
 
     /// <summary>
     /// Список доменов для политики Cors.

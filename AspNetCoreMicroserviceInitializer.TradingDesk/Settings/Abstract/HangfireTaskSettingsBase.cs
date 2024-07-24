@@ -10,12 +10,12 @@ public abstract class HangfireTaskSettingsBase
     ///
     /// Пример: */5 * * * *.
     /// </summary>
-    public required string CronExpression { get; init; }
+    public required string CronExpression { get; init; } = "*/5 * * * *";
 
     /// <summary>
     /// Временная зона, в которой указывается время в <see cref="CronExpression"/>.
     ///
     /// Пример: Europe/Moscow.
     /// </summary>
-    public required string TimeZone { get; init; }
+    public required string TimeZone { get; init; } = "Europe/Moscow";
 }

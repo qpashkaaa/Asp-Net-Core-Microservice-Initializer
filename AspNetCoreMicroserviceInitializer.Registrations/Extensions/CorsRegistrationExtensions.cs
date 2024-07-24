@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace AspNetCoreMicroserviceInitializer.Registrations.Extensions;
 
@@ -54,7 +53,7 @@ internal static class CorsRegistrationExtensions
     internal static WebApplication UseNamedPolicyCors(
         this WebApplication app)
     {
-        var corsSettings = app.Services.GetRequiredService<IOptions<CorsSettings>>().Value;
+        var corsSettings = app.Configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>();
 
         if (corsSettings != null &&
             corsSettings.EnableCors &&

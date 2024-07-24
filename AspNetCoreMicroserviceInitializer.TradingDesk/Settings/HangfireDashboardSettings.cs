@@ -16,7 +16,7 @@ public class HangfireDashboardSettings
     ///
     /// Пример: true/false.
     /// </summary>
-    public bool EnableCustomAuthorization { get; init; }
+    public bool EnableCustomAuthorization { get; init; } = true;
 
     /// <summary>
     /// Название фильтра авторизации (название класса фильтра).
@@ -24,5 +24,5 @@ public class HangfireDashboardSettings
     /// Доступные фильтры:
     /// <see cref="AllAuthorizationFilter"/>.
     /// </summary>
-    public string? FilterName { get; init; }
+    public string? FilterName { get; init; } = "AllAuthorizationFilter";
 }
