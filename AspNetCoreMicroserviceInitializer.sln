@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreMicroserviceIniti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreMicroserviceInitializer.Database", "AspNetCoreMicroserviceInitializer.Database\AspNetCoreMicroserviceInitializer.Database.csproj", "{206B8A9E-64F2-4A2A-AFB9-2B1129B7927E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreMicroserviceInitializer.TestApi", "AspNetCoreMicroserviceInitializer.TestApi\AspNetCoreMicroserviceInitializer.TestApi.csproj", "{29F9D938-4322-43B1-95F4-5565BA59358A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{206B8A9E-64F2-4A2A-AFB9-2B1129B7927E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{206B8A9E-64F2-4A2A-AFB9-2B1129B7927E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{206B8A9E-64F2-4A2A-AFB9-2B1129B7927E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F9D938-4322-43B1-95F4-5565BA59358A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F9D938-4322-43B1-95F4-5565BA59358A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F9D938-4322-43B1-95F4-5565BA59358A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F9D938-4322-43B1-95F4-5565BA59358A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
