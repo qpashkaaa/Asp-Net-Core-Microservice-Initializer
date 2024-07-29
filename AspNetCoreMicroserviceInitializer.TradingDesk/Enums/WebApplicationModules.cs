@@ -52,10 +52,11 @@ public enum WebApplicationModules
     /// Модуль для автоматической регистрации HealthChecks.
     ///
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Добавить в приложение классы HealthChecks, унаследованные от <see cref="IHealthCheck"/>.
+    /// 1. Добавить в приложение классы HealthChecks, унаследованные от <see cref="IHealthCheck"/> и присвоить им атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
     /// 2. Создать в конфиге элемент модели настроек Health Checks <see cref="HealthChecksSettings"/>.
     /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя реализацию интерфейса <see cref="IHealthCheck"/>.</remarks>
+    /// <remarks>1. Регистрация моделей будет произведена автоматически, используя реализацию интерфейса <see cref="IHealthCheck"/> и атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
+    /// 2. Если в настройках конфига включен параметр <see cref="HealthChecksSettings.UIEnable"/>, то получить доступ к UI оболочке можно по URL: /healthchecks-ui</remarks>
     HealthChecks = 3,
 
     /// <summary>
@@ -117,7 +118,7 @@ public enum WebApplicationModules
     /// Для корректной работы мигратора необходимо:
     /// 1. Создать модели <see cref="DbContext"/>.
     /// 2. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
-    /// 3. Создать миграции.
+    /// 3. Создать миграции, используя команду <code>dotnet ef migrations add InitialCreate --project your-project/your-project.csproj --startup-project your-project/your-project.csproj --output-dir Migrations</code>.
     /// </summary>
     Migrations = 12
 }

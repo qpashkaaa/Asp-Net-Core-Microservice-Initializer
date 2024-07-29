@@ -65,7 +65,7 @@ public static class AssemblyHelper
         var logger = loggerFactory?.CreateLogger(typeof(AssemblyHelper));
         
         var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var allAssemblyFiles = Directory.GetFiles(basePath, "*.dll", SearchOption.AllDirectories);
+        var allAssemblyFiles = Directory.GetFiles(basePath, "*.dll");
         var assembliesWithSpecificType = new List<Assembly>();
 
         foreach (var assemblyPath in allAssemblyFiles)

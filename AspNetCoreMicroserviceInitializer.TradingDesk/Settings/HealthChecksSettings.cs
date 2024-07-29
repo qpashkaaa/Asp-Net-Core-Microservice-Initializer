@@ -29,7 +29,7 @@ public class HealthChecksSettings
     /// 
     /// Пример: http://mydomain:80/health.
     /// </summary>
-    public string? UIFullUrl { get; init; } = "http://localhost:8000/health";
+    public string? EndpointFullUrl { get; init; } = "http://localhost:8000/health";
 
     /// <summary>
     /// Частота опроса в секундах Health Checks для UI.

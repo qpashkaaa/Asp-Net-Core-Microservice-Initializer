@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Settings;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
@@ -40,7 +39,10 @@ internal static class HealthChecksRegistrationExtensions
         services.AddHealthChecksSettings(configuration);
         
         var serviceProvider = services.BuildServiceProvider();
-        var healthChecksSettings = serviceProvider.GetRequiredService<IOptions<HealthChecksSettings>>().Value;
+        var healthChecksSettings = serviceProvider
+            .GetService<IConfiguration>()?
+            .GetSection(nameof(HealthChecksSettings))
+            .Get<HealthChecksSettings>();
 
         var assemblies = AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterHealthCheckAttribute>(false, serviceProvider);
 
@@ -60,12 +62,13 @@ internal static class HealthChecksRegistrationExtensions
             });
         
 
-        if (healthChecksSettings.UIEnable &&
-            !string.IsNullOrEmpty(healthChecksSettings.UIFullUrl))
+        if (healthChecksSettings != null &&
+            healthChecksSettings.UIEnable &&
+            !string.IsNullOrEmpty(healthChecksSettings.EndpointFullUrl))
         {
             services.AddHealthChecksUI(setupSettings: setup =>
             {
-                setup.AddHealthCheckEndpoint("Health Checks", healthChecksSettings.UIFullUrl);
+                setup.AddHealthCheckEndpoint("Health Checks", healthChecksSettings.EndpointFullUrl);
                 setup.SetEvaluationTimeInSeconds(healthChecksSettings.UIEvaluationTimeInSeconds ?? 30);
                 setup.SetApiMaxActiveRequests(healthChecksSettings.UIApiMaxActiveRequests ?? 2);
             }).AddInMemoryStorage();
@@ -94,23 +97,29 @@ internal static class HealthChecksRegistrationExtensions
     internal static WebApplication UseHealthChecks(
         this WebApplication app)
     {
-        var healthChecksSettings = app.Services.GetRequiredService<IOptions<HealthChecksSettings>>().Value;
+        var healthChecksSettings = app.Services
+            .GetService<IConfiguration>()?
+            .GetSection(nameof(HealthChecksSettings))
+            .Get<HealthChecksSettings>();
         var healthChecksOptions = new HealthCheckOptions();
+        
+        if (healthChecksSettings != null)
+        {
+            if (healthChecksSettings.UIEnable &&
+            !string.IsNullOrEmpty(healthChecksSettings.EndpointFullUrl))
+            {
+                app.UseHealthChecksUI();
+            }
 
-        if (healthChecksSettings.UIEnable &&
-            !string.IsNullOrEmpty(healthChecksSettings.UIFullUrl))
-        {
-            app.UseHealthChecksUI();
-            healthChecksOptions.ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse;
-        }
-
-        try
-        {
-            app.MapHealthChecks(healthChecksSettings.Endpoint, healthChecksOptions);
-        }
-        catch
-        {
-            throw new Exception($"Не найдены классы Health Checks при регистрации зависимостей. Пожалуйста, создайте экземпляр класса, реализующий интерфейс {typeof(IHealthCheck)} и присвойте ему атрибут {typeof(AutoRegisterHealthCheckAttribute)}.");
+            try
+            {
+                healthChecksOptions.ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse;
+                app.MapHealthChecks(healthChecksSettings.Endpoint, healthChecksOptions);
+            }
+            catch
+            {
+                throw new Exception($"Не найдены классы Health Checks при регистрации зависимостей. Пожалуйста, создайте экземпляр класса, реализующий интерфейс {typeof(IHealthCheck)} и присвойте ему атрибут {typeof(AutoRegisterHealthCheckAttribute)}.");
+            }
         }
 
         return app;

@@ -1,6 +1,9 @@
 using AspNetCoreMicroserviceInitializer.TestApi.TestElements.AutoMappers;
+using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
+using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Settings;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreMicroserviceInitializer.TestApi.Controllers;
 [Route("api/[controller]")]
@@ -43,9 +46,50 @@ public class TestController : ControllerBase
     //}
     #endregion
 
-    [HttpGet("TestCors")]
-    public string TestCors()
+    #region Cors (works)
+    //[HttpGet("TestCors")]
+    //public string TestCors()
+    //{
+    //    return "Cors is working";
+    //}
+    #endregion
+
+    #region Settings (works)
+    //private readonly TestSetting _testSettings;
+
+    //public TestController(IOptions<TestSetting> testSetting)
+    //{
+    //    _testSettings = testSetting.Value;
+    //}
+
+    //[HttpGet("TestSettings")]
+    //public TestSetting TestCors()
+    //{
+    //    return _testSettings;
+    //}
+    #endregion
+
+    #region Database
+    private readonly TestRepository _testRepository;
+
+    public TestController(TestRepository testRepository)
     {
-        return "Cors is working";
+        _testRepository = testRepository;
     }
+
+    [HttpGet("InsertOne")]
+    public async Task InsertOne()
+    {
+        await _testRepository.InsertAsync(new TestTable
+        {
+            Message = $"CreatedFromController {Guid.NewGuid()}"
+        });
+    }
+
+    [HttpGet("GetOne")]
+    public async Task<TestTable?> GetOne(long id)
+    {
+        return await _testRepository.GetByIdAsync(id);
+    }
+    #endregion
 }

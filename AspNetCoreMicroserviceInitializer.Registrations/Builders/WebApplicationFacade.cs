@@ -152,43 +152,12 @@ public class WebApplicationFacade
     /// <returns>Веб-приложение типа <see cref="WebApplication"/> с установленными зависимостями.</returns>
     public WebApplication CreateApplication()
     {
-        AddInitializedModules();
+        AddModulesDependencies();
+        AddInitializedModulesInBuilder();
 
         var app = _builder.Build();
 
-        foreach (var module in _modules)
-        {
-            switch (module)
-            {
-                case WebApplicationModules.Cors:
-                    app.UseNamedPolicyCors();
-                    break;
-                case WebApplicationModules.Hangfire:
-                    app.UseHangfireDashboard();
-                    app.UseHangfireTasks();
-                    break;
-                case WebApplicationModules.HealthChecks:
-                    app.UseHealthChecks();
-                    break;
-                case WebApplicationModules.Swagger:
-                    if (app.Environment.IsDevelopment())
-                    {
-                        app.UseSwagger();
-                        app.UseSwaggerUI();
-                    }
-                    break;
-                case WebApplicationModules.Authorization:
-                    app.UseAuthorization();
-                    break;
-                case WebApplicationModules.Controllers:
-                    app.MapControllers();
-                    app.UseRouting();
-                    break;
-                default:
-                    continue;
-
-            }
-        }
+        AddInitializedModulesInApplication(app);
 
         return app;
     }
@@ -196,7 +165,7 @@ public class WebApplicationFacade
     /// <summary>
     /// Метод добавления проинициализированных модулей в билдер <see cref="WebApplicationBuilder"/>.
     /// </summary>
-    private void AddInitializedModules()
+    private void AddInitializedModulesInBuilder()
     {
         foreach (var module in _modules)
         {
@@ -252,6 +221,67 @@ public class WebApplicationFacade
                 default:
                     continue;
             }
+        }
+    }
+
+    /// <summary>
+    /// Метод добавления проинициализированных модулей в приложение <see cref="WebApplication"/>.
+    /// </summary>
+    /// <param name="app">Приложение с проинициализированными модулями в <see cref="WebApplicationBuilder"/>.</param>
+    private void AddInitializedModulesInApplication(WebApplication app)
+    {
+        foreach (var module in _modules)
+        {
+            switch (module)
+            {
+                case WebApplicationModules.Cors:
+                    app.UseNamedPolicyCors();
+                    break;
+                case WebApplicationModules.Hangfire:
+                    app.UseHangfireDashboard();
+                    app.UseHangfireTasks();
+                    break;
+                case WebApplicationModules.HealthChecks:
+                    app.UseHealthChecks();
+                    break;
+                case WebApplicationModules.Swagger:
+                    if (app.Environment.IsDevelopment())
+                    {
+                        app.UseSwagger();
+                        app.UseSwaggerUI();
+                    }
+                    break;
+                case WebApplicationModules.Authorization:
+                    app.UseAuthorization();
+                    break;
+                case WebApplicationModules.Controllers:
+                    app.MapControllers();
+                    app.UseRouting();
+                    break;
+                default:
+                    continue;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Метод добавления зависимостей при использовании определенных модулей.
+    /// </summary>
+    private void AddModulesDependencies()
+    {
+        if (_modules.Contains(WebApplicationModules.Migrations))
+        {
+            _modules.Add(WebApplicationModules.Database);
+        }
+
+        if (_modules.Contains(WebApplicationModules.Hangfire))
+        {
+            _modules.Add(WebApplicationModules.Settings);
+        }
+
+        if (_modules.Contains(WebApplicationModules.Swagger))
+        {
+            _modules.Add(WebApplicationModules.Controllers);
         }
     }
 }

@@ -38,7 +38,7 @@ internal static class DatabaseRegistrationExtensions
                     .FirstOrDefault(m => m.Name == "AddDbContext")?
                     .MakeGenericMethod(type);
 
-                addDbContextMethod?.Invoke(null, new object?[] { services });
+                addDbContextMethod?.Invoke(null, new[] { services, null, (object)ServiceLifetime.Scoped, (object)ServiceLifetime.Scoped });
             });
         
         assemblies.AddRange(AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterRepositoryAttribute>(false, serviceProvider));

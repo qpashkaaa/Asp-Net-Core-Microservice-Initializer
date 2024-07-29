@@ -15,15 +15,14 @@ public class Migrator : IMigrator
     /// <summary>
     /// Провайдер сервисов.
     /// </summary>
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Создание <see cref="Migrator"/>.
     /// </summary>
-    /// <param name="serviceProvider"></param>
-    public Migrator(IServiceProvider serviceProvider)
+    public Migrator(IServiceScopeFactory scopeFactory)
     {
-        _serviceProvider = serviceProvider;
+        _scopeFactory = scopeFactory;
     }
 
     /// <summary>
@@ -31,29 +30,32 @@ public class Migrator : IMigrator
     /// </summary>
     public async Task MigrateAsync(CancellationToken cancellationToken)
     {
-        var dbContexts = new List<DbContext>();
-
-        var assemblies = AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterDbContextAttribute>(false, _serviceProvider as ServiceProvider);
-        
-        AssemblyHelper.FindTypesByConditionAndDoActions(
-            assemblies,
-            assembly => assembly.GetTypes().Where(t => t.GetCustomAttributes<AutoRegisterDbContextAttribute>(false).Any()),
-            type =>
-            {
-                if (!type.IsSubclassOf(typeof(DbContext)))
-                {
-                    throw new Exception($"Невозможно применить атрибут {nameof(AutoRegisterDbContextAttribute)} к модели типа {type.FullName}. Атрибут {nameof(AutoRegisterDbContextAttribute)} может применяться только к профилям, которые наследуют {typeof(DbContext)}");
-                }
-
-                if (_serviceProvider.GetRequiredService(type) is DbContext dbContext)
-                {
-                    dbContexts.Add(dbContext);
-                }
-            });
-
-        foreach (var dbContext in dbContexts)
+        using (var scope = _scopeFactory.CreateScope())
         {
-            await dbContext.Database.MigrateAsync(cancellationToken);
+            var dbContexts = new List<DbContext>();
+
+            var assemblies = AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterDbContextAttribute>(false, scope.ServiceProvider as ServiceProvider);
+
+            AssemblyHelper.FindTypesByConditionAndDoActions(
+                assemblies,
+                assembly => assembly.GetTypes().Where(t => t.GetCustomAttributes<AutoRegisterDbContextAttribute>(false).Any()),
+                type =>
+                {
+                    if (!type.IsSubclassOf(typeof(DbContext)))
+                    {
+                        throw new Exception($"Невозможно применить атрибут {nameof(AutoRegisterDbContextAttribute)} к модели типа {type.FullName}. Атрибут {nameof(AutoRegisterDbContextAttribute)} может применяться только к профилям, которые наследуют {typeof(DbContext)}");
+                    }
+
+                    if (scope.ServiceProvider.GetRequiredService(type) is DbContext dbContext)
+                    {
+                        dbContexts.Add(dbContext);
+                    }
+                });
+
+            foreach (var dbContext in dbContexts)
+            {
+                await dbContext.Database.MigrateAsync(cancellationToken);
+            }
         }
     }
 }
