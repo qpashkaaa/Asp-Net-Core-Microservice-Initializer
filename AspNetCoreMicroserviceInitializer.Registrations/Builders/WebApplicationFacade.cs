@@ -77,6 +77,8 @@ public class WebApplicationFacade
     /// <remarks>
     /// При использовании данного метода, в конфиг добавятся секции моделей настроек со значениями по умолчанию, если этой секции не существует.
     /// У моделей настроек должен быть атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 
+    /// ВАЖНО! Не используйте этот метод при разворачивании приложения внутри Docker. Предполагается, что сначала поулчаются файлы, настраиваются и после уже контейнер разворачивается в Docker, а там не требуется использование этого метода, т.к. все уже должно быть настроено.
     /// </remarks>
     /// <param name="configPath">Путь до файла конфига.</param>
     public WebApplicationFacade InitBaseConfig(string configPath = "appsettings.json")
@@ -133,8 +135,12 @@ public class WebApplicationFacade
     /// 1) develop.env
     /// 2) docker-compose.yml
     /// </summary>
-    /// <remarks>Файлы создаются в директории приложения в папке Templates. После их можно вынести, куда необходимо.</remarks>
-    /// <param name="filesModules">Модули, которые будут добавлены в файлы.</param>
+    /// <remarks>
+    /// Файлы создаются в директории приложения в папке DockerTemplates. После их можно вынести, куда необходимо.
+    /// 
+    /// ВАЖНО! Не используйте этот метод при разворачивании приложения внутри Docker. Предполагается, что сначала поулчаются файлы, настраиваются и после уже контейнер разворачивается в Docker, а там не требуется использование этого метода, т.к. все уже должно быть настроено.
+    /// </remarks>
+    /// <param name="dockerComposeFileModules">Модули, которые будут добавлены в файлы.</param>
     /// <param name="configPath">Путь до файла конфига.</param>
     public WebApplicationFacade InitBaseDockerComposeFiles(
         List<DockerComposeFileModules> dockerComposeFileModules,
@@ -245,14 +251,10 @@ public class WebApplicationFacade
                     app.UseHealthChecks();
                     break;
                 case WebApplicationModules.Swagger:
-                    if (app.Environment.IsDevelopment())
-                    {
-                        app.UseSwagger();
-                        app.UseSwaggerUI();
-                    }
-                    break;
-                case WebApplicationModules.Authorization:
-                    app.UseAuthorization();
+#if DEBUG
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+#endif
                     break;
                 case WebApplicationModules.Controllers:
                     app.MapControllers();
@@ -271,6 +273,7 @@ public class WebApplicationFacade
     {
         if (_modules.Contains(WebApplicationModules.Migrations))
         {
+            _modules.Add(WebApplicationModules.Settings);
             _modules.Add(WebApplicationModules.Database);
         }
 
@@ -281,6 +284,7 @@ public class WebApplicationFacade
 
         if (_modules.Contains(WebApplicationModules.Swagger))
         {
+            _modules.Add(WebApplicationModules.EndpointsApiExplorer);
             _modules.Add(WebApplicationModules.Controllers);
         }
     }

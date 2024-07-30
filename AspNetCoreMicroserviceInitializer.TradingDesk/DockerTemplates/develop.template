@@ -1,0 +1,5 @@
+# Путь до .env файла относительно docker-compose (используется для прописывания .env файлов в сервисы docker-compose).
+ENV_FILE=develop.env
+
+# Временная зона приложений.
+TIME_ZONE=Europe/Moscow

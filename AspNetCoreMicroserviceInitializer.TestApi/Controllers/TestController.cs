@@ -1,5 +1,6 @@
 using AspNetCoreMicroserviceInitializer.TestApi.TestElements.AutoMappers;
 using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
+using AspNetCoreMicroserviceInitializer.TestApi.TestElements.EnvironmentVariables;
 using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Settings;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -69,27 +70,58 @@ public class TestController : ControllerBase
     //}
     #endregion
 
-    #region Database
-    private readonly TestRepository _testRepository;
+    #region Database (Works)
+    //private readonly TestRepository _testRepository;
 
-    public TestController(TestRepository testRepository)
+    //public TestController(TestRepository testRepository)
+    //{
+    //    _testRepository = testRepository;
+    //}
+
+    //[HttpGet("InsertOne")]
+    //public async Task InsertOne()
+    //{
+    //    await _testRepository.InsertAsync(new TestTable
+    //    {
+    //        Message = $"CreatedFromController {Guid.NewGuid()}"
+    //    });
+    //}
+
+    //[HttpGet("GetOne")]
+    //public async Task<TestTable?> GetOne(long id)
+    //{ 
+    #endregion
+
+    #region Serilog (Works)
+
+    //private readonly ILogger<TestController> _logger;
+
+    //public TestController(ILogger<TestController> logger)
+    //{
+    //    _logger = logger;
+    //}
+
+    //[HttpGet("WriteLog")]
+    //public void WriteLog()
+    //{
+    //    _logger.LogError("Hello from ILogger");
+    //    Serilog.Log.Error("Hello from Log");
+    //}
+    #endregion
+
+    #region EnvironmentVariables (Works)
+    private readonly EnvironmentVariablesSettingTest _envVar;
+
+    public TestController(IOptions<EnvironmentVariablesSettingTest> envVar)
     {
-        _testRepository = testRepository;
+        _envVar = envVar.Value;
     }
 
-    [HttpGet("InsertOne")]
-    public async Task InsertOne()
-    {
-        await _testRepository.InsertAsync(new TestTable
-        {
-            Message = $"CreatedFromController {Guid.NewGuid()}"
-        });
-    }
 
-    [HttpGet("GetOne")]
-    public async Task<TestTable?> GetOne(long id)
+    [HttpGet("GetModel")]
+    public EnvironmentVariablesSettingTest GetModel()
     {
-        return await _testRepository.GetByIdAsync(id);
+        return _envVar;
     }
     #endregion
 }

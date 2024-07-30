@@ -6,6 +6,7 @@ using AspNetCoreMicroserviceInitializer.TradingDesk.Settings.Abstract;
 using Hangfire.Dashboard;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
 
@@ -88,29 +89,27 @@ public enum WebApplicationModules
     Swagger = 6,
     
     /// <summary>
-    /// Модуль авторизации.
-    /// </summary>
-    Authorization = 7,
-    
-    /// <summary>
     /// Модуль контроллеров.
     /// </summary>
-    Controllers = 8,
+    Controllers = 7,
 
     /// <summary>
     /// Модуль Serilog.
+    /// 
+    /// Настроить модуль можно в конфиге appsettings.json. Базовый конфиг для настроек Serilog можно проинициализировать, используя метод .InitBaseConfig() у WebApplicationFacade.
+    /// Обратиться к логгеру можно как используя интерфейс <see cref="ILogger{TCategoryName}"/>, так и используя статический класс <see cref="Serilog.Log"/>.
     /// </summary>
-    Serilog = 9,
+    Serilog = 8,
 
     /// <summary>
     /// Модуль переменных окружения.
     /// </summary>
-    EnvironmentVariables = 10,
+    EnvironmentVariables = 9,
 
     /// <summary>
-    /// Модуль конфигурации ApiExplorer.
+    /// Модуль конфигурации ApiExplorer (служба Minimal APIs).
     /// </summary>
-    EndpointsApiExplorer = 11,
+    EndpointsApiExplorer = 10,
 
     /// <summary>
     /// Модуль инициализации мигратора <see cref="Migrator"/> (применяет созданные миграции к БД) и проведения миграций при старте приложения с использованием <see cref="MigrationHostedService"/>.
@@ -120,5 +119,5 @@ public enum WebApplicationModules
     /// 2. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
     /// 3. Создать миграции, используя команду <code>dotnet ef migrations add InitialCreate --project your-project/your-project.csproj --startup-project your-project/your-project.csproj --output-dir Migrations</code>.
     /// </summary>
-    Migrations = 12
+    Migrations = 11
 }

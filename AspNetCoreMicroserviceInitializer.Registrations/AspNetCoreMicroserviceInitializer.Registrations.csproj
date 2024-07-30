@@ -11,12 +11,4 @@
       <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.TradingDesk\AspNetCoreMicroserviceInitializer.TradingDesk.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="Files\develop.env" />
-      <None Remove="Templates\docker-compose.yml" />
-      <None Remove="Templates\develop.env" />
-      <None Remove="Templates\develop.tmp" />
-      <None Remove="Templates\docker-compose.tmp" />
-    </ItemGroup>
-
 </Project>

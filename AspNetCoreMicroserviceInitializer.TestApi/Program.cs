@@ -23,7 +23,8 @@ public class Program
         //    [
         //    WebApplicationModules.Cors,
         //    WebApplicationModules.Controllers,
-        //    WebApplicationModules.Swagger
+        //    WebApplicationModules.Swagger,
+        //    WebApplicationModules.EndpointsApiExplorer
         //    ])
         //    .InitBaseConfig()
         //    .CreateApplication();
@@ -60,15 +61,15 @@ public class Program
         #endregion
 
         #region Database (Works)
-        var app = new WebApplicationFacade(
-            [
-                WebApplicationModules.Database,
-                WebApplicationModules.Swagger,
-                WebApplicationModules.Controllers,
-                WebApplicationModules.Settings
-            ])
-            .InitBaseConfig()
-            .CreateApplication();
+        //var app = new WebApplicationFacade(
+        //    [
+        //        WebApplicationModules.Database,
+        //        WebApplicationModules.Swagger,
+        //        WebApplicationModules.Controllers,
+        //        WebApplicationModules.Settings
+        //    ])
+        //    .InitBaseConfig()
+        //    .CreateApplication();
         #endregion
 
         #region Migrator (Works)
@@ -77,6 +78,27 @@ public class Program
         //        WebApplicationModules.Migrations
         //    ])
         //    .CreateApplication();
+        #endregion
+
+        #region Serilog (Works)
+        //var app = new WebApplicationFacade(
+        //    [
+        //        WebApplicationModules.Serilog,
+        //        WebApplicationModules.Controllers,
+        //        WebApplicationModules.Swagger
+        //    ])
+        //    .InitBaseConfig()
+        //    .CreateApplication();
+        #endregion
+
+        #region EnvironmentVariables (Works)
+        var app = new WebApplicationFacade(
+            [
+                WebApplicationModules.Swagger,
+                WebApplicationModules.EnvironmentVariables,
+                WebApplicationModules.Settings
+            ])
+            .CreateApplication();
         #endregion
 
         app.Run();

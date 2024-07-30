@@ -12,12 +12,17 @@ namespace AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 public static class DockerComposeFilesHelper
 {
     /// <summary>
-    /// Метод создания docker-compose.yml со стандартными параметрами из файла-шаблона docker-compose.tmp.
+    /// Базовая папка с файлами DockerTemplates.
+    /// </summary>
+    private const string TemplatesFolder = "DockerTemplates";
+
+    /// <summary>
+    /// Метод создания docker-compose.yml со стандартными параметрами из файла-шаблона docker-compose.template.
     /// </summary>
     /// <param name="fileModules">Модули, которые должны быть добавлены в файл docker-compose.</param>
     public static void CreateDockerComposeFileContent(List<DockerComposeFileModules> fileModules)
     {
-        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates/docker-compose.tmp");
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{TemplatesFolder}/docker-compose.template");
         var content = File.ReadAllText(filePath);
         const string pattern = @"<(\w+)>(.*?)<\/\1>";
         var regex = new Regex(pattern, RegexOptions.Singleline);
@@ -27,17 +32,17 @@ public static class DockerComposeFilesHelper
         const string replacement = "\n\n";
         var result = Regex.Replace(contentWithFilteredModules, newLinesPattern, replacement);
         
-        File.WriteAllText(filePath.Replace(".tmp", ".yml"), result);
+        File.WriteAllText(filePath.Replace(".template", ".yml"), result);
         File.Delete(filePath);
     }
 
     /// <summary>
-    /// Метод создания develop.env со стандартными параметрами из файла-шаблона develop.tmp.
+    /// Метод создания develop.env со стандартными параметрами из файла-шаблона develop.template.
     /// </summary>
     /// <param name="configPath">Путь до конфига appsettings.json.</param>
     public static void CreateEnvironmentFileContent(string configPath)
     {
-        var envFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates/develop.tmp");
+        var envFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{TemplatesFolder}/develop.template");
         
         var configContent = File.ReadAllText(configPath);
         var environmentFileContent = File.ReadAllLines(envFilePath).ToList();
@@ -54,7 +59,7 @@ public static class DockerComposeFilesHelper
                 environmentFileContent.Add(string.Empty);
             }
 
-            File.WriteAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates/develop.env"), environmentFileContent);
+            File.WriteAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{TemplatesFolder}/develop.env"), environmentFileContent);
             File.Delete(envFilePath);
         }
     }
