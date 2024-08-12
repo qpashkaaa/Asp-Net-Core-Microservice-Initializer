@@ -15,7 +15,7 @@ public interface IServiceImplementationFactory<TService>
     /// <remarks>
     /// Если используется атрибут <see cref="AutoRegisterServiceAttribute"/> и при регистрации сервиса необходимо использовать фабричный метод для создания экземпляра сервиса 
     /// (<see cref="ServiceCollectionServiceExtensions.AddTransient{TService, TImplementation}(IServiceCollection, Func{IServiceProvider, TImplementation})"/> или подобные методы),
-    /// то реализуйте данный интерйес.
+    /// то реализуйте данный интерфейс.
     /// </remarks>
     public Func<IServiceProvider, TService> ImplementationFactory { get; }
 }
