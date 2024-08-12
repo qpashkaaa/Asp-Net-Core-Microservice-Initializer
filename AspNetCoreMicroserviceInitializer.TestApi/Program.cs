@@ -1,6 +1,9 @@
-using AspNetCoreMicroserviceInitializer.Registrations.Builders;
-using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
-using AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
+//using AspNetCoreMicroserviceInitializer.Registrations.Builders;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Services;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Services.Interfaces;
+//using AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
+//using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreMicroserviceInitializer.TestApi;
 
@@ -92,15 +95,24 @@ public class Program
         #endregion
 
         #region EnvironmentVariables (Works)
-        var app = new WebApplicationFacade(
-            [
-                WebApplicationModules.Swagger,
-                WebApplicationModules.EnvironmentVariables,
-                WebApplicationModules.Settings
-            ])
-            .CreateApplication();
+        //var app = new WebApplicationFacade(
+        //    [
+        //        WebApplicationModules.Swagger,
+        //        WebApplicationModules.EnvironmentVariables,
+        //        WebApplicationModules.Settings
+        //    ])
+        //    .CreateApplication();
         #endregion
 
-        app.Run();
+        #region Services (Works)
+        //var app = new WebApplicationFacade(
+        //    [
+        //        WebApplicationModules.Services,
+        //        WebApplicationModules.Swagger
+        //    ])
+        //    .CreateApplication();
+        #endregion
+
+        //app.Run();
     }
 }

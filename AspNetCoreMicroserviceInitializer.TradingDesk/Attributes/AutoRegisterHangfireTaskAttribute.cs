@@ -1,4 +1,5 @@
-﻿using AspNetCoreMicroserviceInitializer.TradingDesk.Settings.Abstract;
+﻿using AspNetCoreMicroserviceInitializer.TradingDesk.Exceptions;
+using AspNetCoreMicroserviceInitializer.TradingDesk.Settings.Abstract;
 
 namespace AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 
@@ -26,7 +27,7 @@ public class AutoRegisterHangfireTaskAttribute : Attribute
     {
         if (!settingsType.IsSubclassOf(typeof(HangfireTaskSettingsBase)))
         {
-            throw new ArgumentException($"{settingsType.FullName} {nameof(settingsType)} должен быть наследником типа {nameof(HangfireTaskSettingsBase)}");
+            throw new AttributeException($"{settingsType.FullName} {nameof(settingsType)} должен быть наследником типа {nameof(HangfireTaskSettingsBase)}");
         }
         
         SettingsType = settingsType;

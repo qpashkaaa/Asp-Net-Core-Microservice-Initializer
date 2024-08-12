@@ -119,5 +119,18 @@ public enum WebApplicationModules
     /// 2. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
     /// 3. Создать миграции, используя команду <code>dotnet ef migrations add InitialCreate --project your-project/your-project.csproj --startup-project your-project/your-project.csproj --output-dir Migrations</code>.
     /// </summary>
-    Migrations = 11
+    Migrations = 11,
+
+    /// <summary>
+    /// Модуль для автоматической регистрации сервисов.
+    /// 
+    /// Для корректной работы данного модуля необходимо:
+    /// 1. Создать сервис и присвоить ему атрибут <see cref="AutoRegisterServiceAttribute"/>.
+    /// </summary>
+    /// <remarks>
+    /// При необходимости добавления фабричной функции во время регистрации сервиса, необходимо унаследовать созданный сервис от <see cref="ServiceBase"/>,
+    /// и переопределить в созданном сервисе метод <see cref="ServiceBase.ImplementationFactory"/>.
+    /// необходимо
+    /// </remarks>
+    Services = 12
 }

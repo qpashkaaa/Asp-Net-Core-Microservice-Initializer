@@ -1,10 +1,13 @@
-using AspNetCoreMicroserviceInitializer.TestApi.TestElements.AutoMappers;
-using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
-using AspNetCoreMicroserviceInitializer.TestApi.TestElements.EnvironmentVariables;
-using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Settings;
-using AutoMapper;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.AutoMappers;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Database;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.EnvironmentVariables;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Services;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Services.Interfaces;
+//using AspNetCoreMicroserviceInitializer.TestApi.TestElements.Settings;
+//using AutoMapper;
+//using Microsoft.Extensions.Options;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace AspNetCoreMicroserviceInitializer.TestApi.Controllers;
 [Route("api/[controller]")]
@@ -110,18 +113,67 @@ public class TestController : ControllerBase
     #endregion
 
     #region EnvironmentVariables (Works)
-    private readonly EnvironmentVariablesSettingTest _envVar;
+    //private readonly EnvironmentVariablesSettingTest _envVar;
 
-    public TestController(IOptions<EnvironmentVariablesSettingTest> envVar)
-    {
-        _envVar = envVar.Value;
-    }
+    //public TestController(IOptions<EnvironmentVariablesSettingTest> envVar)
+    //{
+    //    _envVar = envVar.Value;
+    //}
 
 
-    [HttpGet("GetModel")]
-    public EnvironmentVariablesSettingTest GetModel()
-    {
-        return _envVar;
-    }
+    //[HttpGet("GetModel")]
+    //public EnvironmentVariablesSettingTest GetModel()
+    //{
+    //    return _envVar;
+    //}
+    #endregion
+
+    #region Services
+    //private readonly IServiceWithImplementationFactory _implementationFactoryService;
+    //private readonly IServiceWithConstructorParams _serviceWithConstructorParams;
+    //private readonly ServiceWithoutConstructorParams _serviceWithoutConstructorParams;
+    //private readonly IFakeConverterService _fakeConvertService;
+
+    //public TestController(
+    //    IServiceWithImplementationFactory implementationFactoryService,
+    //    IServiceWithConstructorParams serviceWithConstructorParams,
+    //    ServiceWithoutConstructorParams serviceWithoutConstructorParams,
+    //    IFakeConverterService fakeConvertService)
+    //{
+    //    _implementationFactoryService = implementationFactoryService;
+    //    _serviceWithConstructorParams = serviceWithConstructorParams;
+    //    _serviceWithoutConstructorParams = serviceWithoutConstructorParams;
+    //    _fakeConvertService = fakeConvertService;
+    //}
+
+    //[HttpGet("IServiceWithImplementationFactoryMessage")]
+    //public string IServiceWithImplementationFactoryMessage()
+    //{
+    //    return _implementationFactoryService.GetMessage();
+    //}
+
+    //[HttpGet("IServiceWithConstructorParamsMessageFromThisService")]
+    //public string IServiceWithConstructorParamsMessageFromThisService()
+    //{
+    //    return _serviceWithConstructorParams.MessageFromThisService();
+    //}
+
+    //[HttpGet("IServiceWithConstructorParamsMessageFromOtherService")]
+    //public string IServiceWithConstructorParamsMessageFromOtherService()
+    //{
+    //    return _serviceWithConstructorParams.MessageFromOtherService();
+    //}
+
+    //[HttpGet("ServiceWithoutConstructorParamsMessage")]
+    //public string ServiceWithoutConstructorParamsMessage()
+    //{
+    //    return _serviceWithoutConstructorParams.MessageFromThisService();
+    //}
+
+    //[HttpGet("ConvertService")]
+    //public string ConvertService()
+    //{
+    //    return _fakeConvertService.Convert();
+    //}
     #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AspNetCoreMicroserviceInitializer.TradingDesk.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -82,6 +83,11 @@ public static class AssemblyHelper
                 {
                     assembliesWithSpecificType.Add(assembly);
                 }
+            }
+            catch (AttributeException attrEx)
+            {
+                logger?.LogError(attrEx, "Ошибка с обработкой атрибута при загрузке Assembly.");
+                throw attrEx;
             }
             catch (Exception ex)
             {

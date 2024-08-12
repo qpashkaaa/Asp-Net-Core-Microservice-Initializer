@@ -224,6 +224,9 @@ public class WebApplicationFacade
                 case WebApplicationModules.Migrations:
                     _builder.AddMigrator();
                     break;
+                case WebApplicationModules.Services:
+                    _builder.Services.AddServices();
+                    break;
                 default:
                     continue;
             }
