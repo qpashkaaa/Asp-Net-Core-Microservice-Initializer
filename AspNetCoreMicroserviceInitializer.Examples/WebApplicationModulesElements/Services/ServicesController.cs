@@ -4,12 +4,12 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 
 [Route("api/[controller]")]
 [ApiController]
-public class RandomController : ControllerBase
+public class ServicesController : ControllerBase
 {
     private readonly RandomService _randomService;
     private readonly AdditionalGuidService _additionalGuidService;
 
-    public RandomController(
+    public ServicesController(
         RandomService randomService,
         AdditionalGuidService additionalGuidService)
     {

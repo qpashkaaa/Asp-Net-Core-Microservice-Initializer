@@ -4,7 +4,7 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 
 [Route("api/[controller]")]
 [ApiController]
-public class DummyController : ControllerBase
+public class ControllersController : ControllerBase
 {
     [HttpGet("Ping")]
     public string Ping()
