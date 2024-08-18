@@ -7,6 +7,7 @@ using Hangfire.Dashboard;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
+using AspNetCoreMicroserviceInitializer.TradingDesk.HangfireFilters;
 
 namespace AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
 
@@ -43,7 +44,7 @@ public enum WebApplicationModules
     /// 2. Создать в конфиге элементы моделей настроек задач, которые должны быть унаследованны от <see cref="HangfireTaskSettingsBase"/> для каждой задачи.
     /// 3. Создать в конфиге элемент модели настроек Hangfire <see cref="HangfireSettings"/>.
     /// 4. Создать в конфиге элемент модели настроек дашборда Hangfire <see cref="HangfireDashboardSettings"/>.
-    /// 5. При необходимости создать фильтр авторизации для дашборда Hangfire, унаследованный от <see cref="IDashboardAuthorizationFilter"/> или же использовать существующие фильтры.
+    /// 5. При необходимости создать фильтр авторизации для дашборда Hangfire, унаследованный от <see cref="IDashboardAuthorizationFilter"/> или же использовать существующие фильтры (<see cref="AllAuthorizationFilter"/>).
     /// 6. Присвоить задачам атрибут <see cref="AutoRegisterHangfireTaskAttribute"/> и передать в его параметры необходимый типы модели настроек.
     /// </summary>
     /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterHangfireTaskAttribute"/>.</remarks>

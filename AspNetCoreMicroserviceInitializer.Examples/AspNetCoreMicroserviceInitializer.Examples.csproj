@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.Registrations\AspNetCoreMicroserviceInitializer.Registrations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WebApplicationModulesElements\Cors %28using by appsettings%29\" />
+    <Folder Include="WebApplicationModulesElements\Migrations %28using by WebApplicationFacade and created migrations%29\" />
+    <Folder Include="WebApplicationModulesElements\EnvironmentVariables %28using by WebApplicationFacade%29\" />
+    <Folder Include="WebApplicationModulesElements\EndpointsApiExplorer %28using by WebApplicationFacade%29\" />
+    <Folder Include="WebApplicationModulesElements\Swagger %28using by WebApplicationFacade%29\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>
