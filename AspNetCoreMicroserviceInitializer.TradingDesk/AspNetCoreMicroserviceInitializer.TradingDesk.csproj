@@ -4,6 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>The library of the basic initializer of the .NET 8 microservice.</Title>
+    <Authors>Pavel Roslyakov</Authors>
+    <Description>Library of the basic initializer of the .NET 8 microservice that encapsulates the basic modules and allows you to connect them easily and quickly.</Description>
+    <PackageProjectUrl>https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</PackageProjectUrl>
+    <PackageTags>.NET 8, Microservice, Microservices, docker-compose, Docker Compose, Docker, Initializer, Fast Start, AutoMappers, Cors, Hangfire, HealthChecks, Swagger, Serilog, Services, Migrator</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
