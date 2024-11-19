@@ -3,7 +3,7 @@
   >*This library upgrade the existing WebApplicationBuilder and allows you to add the desired functionality to the application in just a couple of lines. This library using reflection and custom attributes to connect application modules, thereby encapsulating most of the code that is needed to initialize these modules in the microservice.*
 
 # Important information
-  **Before adding the library to your project, "ASP .NET 8 Core Web API" it is necessary to remove the NuGet package "Swashbuckle.AspNetCore", which is added by default, from the project to avoid conflicts, since this package is available in the library "AspNetCoreMicroserviceInitializer.TradingDesk".**
+  **Before adding the library to your "ASP .NET 8 Core Web API" project it is necessary to remove the NuGet package "Swashbuckle.AspNetCore", which is added by default, from the project to avoid conflicts, since this package is available in the library "AspNetCoreMicroserviceInitializer.TradingDesk".**
 
 ## Functional features
   >*Additional examples of using the library's functionality in a real micro-service can be found in the project "**AspNetCoreMicroserviceInitializer.Examples**" of this repository.*
