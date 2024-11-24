@@ -1,3 +1,8 @@
+# All NuGet packages
+- [AspNetCoreMicroserviceInitializer.Registrations](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations/)
+- [AspNetCoreMicroserviceInitializer.TradingDesk](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.TradingDesk/)
+- [AspNetCoreMicroserviceInitializer.Database](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Database/)
+
 # What It This?
   **A library for fast initialization of basic .NET 8 microservice modules and initialization of basic docker compose.**
   >*This library upgrade the existing WebApplicationBuilder and allows you to add the desired functionality to the application in just a couple of lines. This library using reflection and custom attributes to connect application modules, thereby encapsulating most of the code that is needed to initialize these modules in the microservice.*
