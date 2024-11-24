@@ -4,11 +4,32 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>The library of the basic initializer of the .NET 8 microservice. WebApplicationFacade has been added to the library, which facilitates the deployment of a microservice.</Title>
+        <Authors>Pavel Roslyakov</Authors>
+        <Description>This library upgrade the existing WebApplicationBuilder and allows you to add the desired functionality to the application in just a couple of lines. This library using reflection and custom attributes to connect application modules, thereby encapsulating most of the code that is needed to initialize these modules in the microservice.
+
+See GitHub for more information.</Description>
+        <PackageProjectUrl>https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <PackageTags>.NET 8, Microservice, Microservices, docker-compose, Docker Compose, Docker, Initializer, Fast Start, AutoMappers, Cors, Hangfire, HealthChecks, Swagger, Serilog, Services, Migrator</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.Database\AspNetCoreMicroserviceInitializer.Database.csproj" />
       <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.TradingDesk\AspNetCoreMicroserviceInitializer.TradingDesk.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="icon.png">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Update="Readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

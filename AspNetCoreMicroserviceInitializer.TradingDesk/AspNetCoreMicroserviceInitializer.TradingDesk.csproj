@@ -4,14 +4,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Title>The library of the basic initializer of the .NET 8 microservice.</Title>
+    <Title>A inventory library for AspNetCoreMicroserviceInitializer.Registrations.</Title>
     <Authors>Pavel Roslyakov</Authors>
-    <Description>Library of the basic initializer of the .NET 8 microservice that encapsulates the basic modules and allows you to connect them easily and quickly.</Description>
+    <Description>A inventory library for fast initialization of basic .NET 8 microservice modules and initialization of basic docker compose. This library is using in AspNetCoreMicroserviceInitializer.Registrations - it is the main project that stores the WebApplicationBuilderFacade.
+
+For more information see https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations</Description>
     <PackageProjectUrl>https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</PackageProjectUrl>
     <PackageTags>.NET 8, Microservice, Microservices, docker-compose, Docker Compose, Docker, Initializer, Fast Start, AutoMappers, Cors, Hangfire, HealthChecks, Swagger, Serilog, Services, Migrator</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>software.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>Updated description, title and Readme. All the basic information is contained in another NuGet package - https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,11 +49,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\README.md">
+    <None Update="icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\..\..\Downloads\software.png">
+    <None Update="Readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

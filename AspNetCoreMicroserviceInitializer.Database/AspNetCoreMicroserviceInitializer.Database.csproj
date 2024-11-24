@@ -4,10 +4,19 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>A library with basic repository models and interfaces and the IEntity database entity.</Title>
+        <Authors>Pavel Roslyakov</Authors>
+        <Description>A library with basic repository models, interfaces and the IEntity database entity.
+
+For more information see GitHub: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</Description>
+        <PackageProjectUrl>https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>.NET 8, Microservice, Microservices, Database, Repository, IEntity, RepositoryInterfaces, EntityFramework</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
         <PrivateAssets>all</PrivateAssets>
@@ -21,7 +30,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.TradingDesk\AspNetCoreMicroserviceInitializer.TradingDesk.csproj" />
+      <None Update="icon.png">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Update="Readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>
