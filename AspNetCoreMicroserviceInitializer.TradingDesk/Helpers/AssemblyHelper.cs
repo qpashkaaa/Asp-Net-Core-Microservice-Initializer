@@ -91,7 +91,7 @@ public static class AssemblyHelper
             }
             catch (Exception ex)
             {
-                logger?.LogError(ex, "Ошибка при загрузке Assembly.");
+                logger?.LogInformation(ex, "Не удалось загрузить Assembly.");
             }
         }
 
