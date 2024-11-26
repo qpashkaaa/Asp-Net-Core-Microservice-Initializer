@@ -1,4 +1,5 @@
-﻿using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
+﻿using AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Services.Interfaces;
+using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.HealthChecks;
@@ -6,6 +7,13 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 [AutoRegisterHealthCheck]
 public class RandomHealthCheck : IHealthCheck
 {
+    private readonly IRandomGuidService _test;
+
+    public RandomHealthCheck(IRandomGuidService test)
+    {
+        _test = test;
+    }
+
     public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
     {
         var random = new Random();

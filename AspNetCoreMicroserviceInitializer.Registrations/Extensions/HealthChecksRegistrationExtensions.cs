@@ -56,9 +56,13 @@ internal static class HealthChecksRegistrationExtensions
             {
                 var healthCheckName = type.Name;
 
-                var healthCheckInstance = Activator.CreateInstance(type);
+                services.AddTransient(type);
 
-                services.AddHealthChecks().AddCheck(healthCheckName, (IHealthCheck)healthCheckInstance!);
+                var serviceProvider = services.BuildServiceProvider();
+
+                var instanse = (IHealthCheck)serviceProvider.GetRequiredService(type);
+
+                services.AddHealthChecks().AddCheck(healthCheckName, instanse);
             });
         
 

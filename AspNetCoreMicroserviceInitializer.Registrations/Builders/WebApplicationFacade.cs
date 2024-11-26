@@ -22,7 +22,7 @@ public class WebApplicationFacade
     /// <summary>
     /// Модули веб-приложения.
     /// </summary>
-    private HashSet<WebApplicationModules> _modules;
+    private List<WebApplicationModules> _modules;
     
     /// <summary>
     /// Билдер веб-приложения.
@@ -40,11 +40,13 @@ public class WebApplicationFacade
     /// <param name="builder">Преднастроенный билдер.</param>
     /// <param name="modules">Модули веб-приложения.</param>
     public WebApplicationFacade(
-        HashSet<WebApplicationModules> modules, 
+        List<WebApplicationModules> modules, 
         WebApplicationBuilder? builder = null)
     {
         _builder = builder ?? WebApplication.CreateBuilder();
-        _modules = modules;
+        _modules = modules
+            .OrderBy(x => (int)x)
+            .ToList();
         _configureActions = new ConfigureActions();
     }
     

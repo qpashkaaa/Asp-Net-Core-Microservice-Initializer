@@ -17,38 +17,40 @@ namespace AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
 public enum WebApplicationModules
 {
     /// <summary>
-    /// Модуль автоматической регистрации <see cref="AutoMapper"/>.
+    /// Модуль для автоматической регистрации настроек конфига.
     ///
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать базовую модель.
-    /// 2. Создать модель DTO.
-    /// 3. Создать профиль, унаследованный от <see cref="Profile"/> для маппинга моделей.
-    /// 4. Присвоить модели DTO атрибут <see cref="AutoRegisterProfileAttribute"/> и передать в его параметры необходимые типы моделей.
+    /// 1. Добавить в приложение модель настроек конфига.
+    /// 2. Создать в конфиге элемент модели настроек (название класса и название элемента конфига должны совпадать).
+    /// 3. Присвоить моделям настроек атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
     /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterProfileAttribute"/>.</remarks>
-    AutoMappers = 0,
+    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.</remarks>
+    Settings = 0,
 
     /// <summary>
-    /// Модуль автоматической регистрации политики Cors.
-    ///
+    /// Модуль для автоматической регистрации сервисов.
+    /// 
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать в конфиге элемент модели настроек <see cref="CorsSettings"/>.
+    /// 1. Создать сервис и присвоить ему атрибут <see cref="AutoRegisterServiceAttribute"/>.
     /// </summary>
-    Cors = 1,
+    /// <remarks>
+    /// При необходимости добавления фабричной функции во время регистрации сервиса, необходимо унаследовать созданный сервис от <see cref="ServiceBase"/>,
+    /// и переопределить в созданном сервисе метод <see cref="ServiceBase.ImplementationFactory"/>.
+    /// необходимо
+    /// </remarks>
+    Services = 1,
 
     /// <summary>
-    /// Модуль для работы с фоновыми задачами Hangfire.
+    /// Метод добавления в приложение модуля для работы с базами данных.
     ///
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать фоновые задачи, реализующие интерфейс <see cref="IHangfireBackgroundTask"/>.
-    /// 2. Создать в конфиге элементы моделей настроек задач, которые должны быть унаследованны от <see cref="HangfireTaskSettingsBase"/> для каждой задачи.
-    /// 3. Создать в конфиге элемент модели настроек Hangfire <see cref="HangfireSettings"/>.
-    /// 4. Создать в конфиге элемент модели настроек дашборда Hangfire <see cref="HangfireDashboardSettings"/>.
-    /// 5. При необходимости создать фильтр авторизации для дашборда Hangfire, унаследованный от <see cref="IDashboardAuthorizationFilter"/> или же использовать существующие фильтры (<see cref="AllAuthorizationFilter"/>).
-    /// 6. Присвоить задачам атрибут <see cref="AutoRegisterHangfireTaskAttribute"/> и передать в его параметры необходимый типы модели настроек.
+    /// 1. Создать модели <see cref="DbContext"/>.
+    /// 2. Создать репозитории для работы с <see cref="DbContext"/>.
+    /// 3. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
+    /// 4. Присвоить моделям репозиториев <see cref="AutoRegisterRepositoryAttribute"/>.
     /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterHangfireTaskAttribute"/>.</remarks>
-    Hangfire = 2,
+    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибуты <see cref="AutoRegisterDbContextAttribute"/> и <see cref="AutoRegisterRepositoryAttribute"/> (регистрация репозиториев производится как AddScoped).</remarks>
+    Database = 2,
 
     /// <summary>
     /// Модуль для автоматической регистрации HealthChecks.
@@ -62,37 +64,43 @@ public enum WebApplicationModules
     HealthChecks = 3,
 
     /// <summary>
-    /// Модуль для автоматической регистрации настроек конфига.
+    /// Модуль автоматической регистрации <see cref="AutoMapper"/>.
     ///
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Добавить в приложение модель настроек конфига.
-    /// 2. Создать в конфиге элемент модели настроек (название класса и название элемента конфига должны совпадать).
-    /// 3. Присвоить моделям настроек атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 1. Создать базовую модель.
+    /// 2. Создать модель DTO.
+    /// 3. Создать профиль, унаследованный от <see cref="Profile"/> для маппинга моделей.
+    /// 4. Присвоить модели DTO атрибут <see cref="AutoRegisterProfileAttribute"/> и передать в его параметры необходимые типы моделей.
     /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.</remarks>
-    Settings = 4,
+    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterProfileAttribute"/>.</remarks>
+    AutoMappers = 4,
 
     /// <summary>
-    /// Метод добавления в приложение модуля для работы с базами данных.
+    /// Модуль автоматической регистрации политики Cors.
     ///
     /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать модели <see cref="DbContext"/>.
-    /// 2. Создать репозитории для работы с <see cref="DbContext"/>.
-    /// 3. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
-    /// 4. Присвоить моделям репозиториев <see cref="AutoRegisterRepositoryAttribute"/>.
+    /// 1. Создать в конфиге элемент модели настроек <see cref="CorsSettings"/>.
     /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибуты <see cref="AutoRegisterDbContextAttribute"/> и <see cref="AutoRegisterRepositoryAttribute"/> (регистрация репозиториев производится как AddScoped).</remarks>
-    Database = 5,
+    Cors = 5,
+
+    /// <summary>
+    /// Модуль для работы с фоновыми задачами Hangfire.
+    ///
+    /// Для корректной работы данного модуля необходимо:
+    /// 1. Создать фоновые задачи, реализующие интерфейс <see cref="IHangfireBackgroundTask"/>.
+    /// 2. Создать в конфиге элементы моделей настроек задач, которые должны быть унаследованны от <see cref="HangfireTaskSettingsBase"/> для каждой задачи.
+    /// 3. Создать в конфиге элемент модели настроек Hangfire <see cref="HangfireSettings"/>.
+    /// 4. Создать в конфиге элемент модели настроек дашборда Hangfire <see cref="HangfireDashboardSettings"/>.
+    /// 5. При необходимости создать фильтр авторизации для дашборда Hangfire, унаследованный от <see cref="IDashboardAuthorizationFilter"/> или же использовать существующие фильтры (<see cref="AllAuthorizationFilter"/>).
+    /// 6. Присвоить задачам атрибут <see cref="AutoRegisterHangfireTaskAttribute"/> и передать в его параметры необходимый типы модели настроек.
+    /// </summary>
+    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterHangfireTaskAttribute"/>.</remarks>
+    Hangfire = 6,
     
     /// <summary>
     /// Модуль Swagger.
     /// </summary>
-    Swagger = 6,
-    
-    /// <summary>
-    /// Модуль контроллеров.
-    /// </summary>
-    Controllers = 7,
+    Swagger = 7,
 
     /// <summary>
     /// Модуль Serilog.
@@ -123,15 +131,7 @@ public enum WebApplicationModules
     Migrations = 11,
 
     /// <summary>
-    /// Модуль для автоматической регистрации сервисов.
-    /// 
-    /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать сервис и присвоить ему атрибут <see cref="AutoRegisterServiceAttribute"/>.
+    /// Модуль контроллеров.
     /// </summary>
-    /// <remarks>
-    /// При необходимости добавления фабричной функции во время регистрации сервиса, необходимо унаследовать созданный сервис от <see cref="ServiceBase"/>,
-    /// и переопределить в созданном сервисе метод <see cref="ServiceBase.ImplementationFactory"/>.
-    /// необходимо
-    /// </remarks>
-    Services = 12
+    Controllers = 12
 }

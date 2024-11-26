@@ -15,7 +15,7 @@ public class Program
         // --------Creating a WebApplication with all possible parameters and passing a pre-configured WebApplicationBuilder (optional).--------
 
         var app = new WebApplicationFacade(
-        modules: new HashSet<WebApplicationModules>
+        modules: new List<WebApplicationModules>
         {
             WebApplicationModules.AutoMappers,
             WebApplicationModules.Cors,
