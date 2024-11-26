@@ -14,8 +14,8 @@ For more information see https://www.nuget.org/packages/AspNetCoreMicroserviceIn
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>Updated description, title and Readme. All the basic information is contained in another NuGet package - https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>- updated order in WebApplicationModules enum.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

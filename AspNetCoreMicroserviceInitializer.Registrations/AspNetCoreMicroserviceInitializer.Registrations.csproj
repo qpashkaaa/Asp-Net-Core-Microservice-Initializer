@@ -14,6 +14,10 @@ See GitHub for more information.</Description>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
         <PackageTags>.NET 8, Microservice, Microservices, docker-compose, Docker Compose, Docker, Initializer, Fast Start, AutoMappers, Cors, Hangfire, HealthChecks, Swagger, Serilog, Services, Migrator</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Version>1.0.1</Version>
+        <PackageReleaseNotes>- updated WebApplicationFacade (_modules is List now, and modules OrderBy module number in enum).
+- fixed bug with HealthChecks registration.
+- updated HealthChecksRegistrationExtensions.cs (organized the registration of HealthChecks through DI).</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
