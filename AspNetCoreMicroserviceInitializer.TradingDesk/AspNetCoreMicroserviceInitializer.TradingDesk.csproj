@@ -14,8 +14,8 @@ For more information see https://www.nuget.org/packages/AspNetCoreMicroserviceIn
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <Version>1.0.3</Version>
-    <PackageReleaseNotes>- updated order in WebApplicationModules enum.</PackageReleaseNotes>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>- fixed the display of information in case the Assembly could not be loaded.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
