@@ -161,6 +161,11 @@ public class WebApplicationFacade
     public WebApplication CreateApplication()
     {
         AddModulesDependencies();
+
+        _modules = _modules
+            .Distinct()
+            .ToList();
+
         AddInitializedModulesInBuilder();
 
         var app = _builder.Build();

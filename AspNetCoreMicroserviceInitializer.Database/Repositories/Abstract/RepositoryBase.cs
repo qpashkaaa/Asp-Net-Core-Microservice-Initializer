@@ -12,7 +12,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
     /// <summary>
     /// Контекст БД.
     /// </summary>
-    private readonly DbContext _dbContext;
+    protected readonly DbContext _dbContext;
 
     /// <summary>
     /// Конструктор <see cref="RepositoryBase{TEntity}"/>.

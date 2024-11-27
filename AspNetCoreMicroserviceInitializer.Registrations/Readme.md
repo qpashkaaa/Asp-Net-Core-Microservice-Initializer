@@ -1,16 +1,21 @@
+# All NuGet packages
+- [AspNetCoreMicroserviceInitializer.Registrations](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations/)
+- [AspNetCoreMicroserviceInitializer.TradingDesk](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.TradingDesk/)
+- [AspNetCoreMicroserviceInitializer.Database](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Database/)
+
 # What It This?
   **A library for fast initialization of basic .NET 8 microservice modules and initialization of basic docker compose.**
   >*This library upgrade the existing WebApplicationBuilder and allows you to add the desired functionality to the application in just a couple of lines. This library using reflection and custom attributes to connect application modules, thereby encapsulating most of the code that is needed to initialize these modules in the microservice.*
 
   >*This library is the general and main one. It combines "**AspNetCoreMicroserviceInitializer.TradingDesk**" and "**AspNetCoreMicroserviceInitializer.Database**".*
 
-  >*For more information, see https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer*
+  >*The most up-to-date documentation on GitHub: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer*
 
 # Important information
-  **Before adding the library to your "ASP .NET 8 Core Web API" project it is necessary to remove the NuGet package "Swashbuckle.AspNetCore", which is added by default, from the project to avoid conflicts, since this package is available in the library "AspNetCoreMicroserviceInitializer.TradingDesk".**
+  **Before adding the library to your "ASP .NET 8 Web API" project it is necessary to remove the NuGet package "Swashbuckle.AspNetCore", which is added by default, from the project to avoid conflicts, since this package is available in the library "AspNetCoreMicroserviceInitializer.TradingDesk".**
 
 ## Functional features
-  >*Additional examples of using the library's functionality in a real micro-service can be found in the project on GitHub "**AspNetCoreMicroserviceInitializer.Examples**" of this repository.*
+  >*Additional examples of using the library's functionality in a real micro-service can be found in the project on GitHub "**AspNetCoreMicroserviceInitializer.Examples**" of GitHub repository.*
 
   >*Detailed information about each module and how to connect it is described in the summary of enum WebApplicationModules.cs.*
 - **An example of creating a WebApplicationBuilder with the addition of all modules, creating a config and configuring a docker compose file.**
@@ -522,29 +527,6 @@ DummyDbContextSettings__MigrationsSchema=DummySchema
 ## NuGet Packages
 - ```AspNetCoreMicroserviceInitializer.TradingDesk```
 - ```AspNetCoreMicroserviceInitializer.Database```
-- ```AspNetCore.HealthChecks.UI```
-- ```AspNetCore.HealthChecks.UI.Client```
-- ```AspNetCore.HealthChecks.UI.InMemory.Storage```
-- ```AutoMapper```
-- ```EFCore.NamingConventions```
-- ```Hangfire.AspNetCore```
-- ```Hangfire.Core```
-- ```Hangfire.MemoryStorage```
-- ```Hangfire.PostgreSql```
-- ```Microsoft.EntityFrameworkCore```
-- ```Microsoft.EntityFrameworkCore.Relational```
-- ```Microsoft.EntityFrameworkCore.Tools```
-- ```Microsoft.Extensions.Configuration```
-- ```Microsoft.Extensions.DependencyInjection```
-- ```Microsoft.Extensions.Hosting```
-- ```Microsoft.Extensions.Logging```
-- ```Microsoft.Extensions.Options```
-- ```Microsoft.Extensions.Options.ConfigurationExtensions```
-- ```Newtonsoft.Json```
-- ```Npgsql.EntityFrameworkCore.PostgreSQL```
-- ```Serilog.AspNetCore```
-- ```Serilog.Sinks.SQLite```
-- ```Swashbuckle.AspNetCore```
 
 ## Authors
 - [Pavel Roslyakov](https://github.com/qpashkaaa)

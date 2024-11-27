@@ -1,3 +1,8 @@
+# All NuGet packages
+- [AspNetCoreMicroserviceInitializer.Registrations](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations/)
+- [AspNetCoreMicroserviceInitializer.TradingDesk](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.TradingDesk/)
+- [AspNetCoreMicroserviceInitializer.Database](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Database/)
+
 # What It This?
   **A inventory library for fast initialization of basic .NET 8 microservice modules and initialization of basic docker compose.**
   >*This library is using in AspNetCoreMicroserviceInitializer.Registrations - it is the main project that stores the WebApplicationBuilderFacade.*

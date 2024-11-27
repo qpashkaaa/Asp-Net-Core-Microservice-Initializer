@@ -1,10 +1,15 @@
+# All NuGet packages
+- [AspNetCoreMicroserviceInitializer.Registrations](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Registrations/)
+- [AspNetCoreMicroserviceInitializer.TradingDesk](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.TradingDesk/)
+- [AspNetCoreMicroserviceInitializer.Database](https://www.nuget.org/packages/AspNetCoreMicroserviceInitializer.Database/)
+
 # What It This?
   **A library with basic repository models, interfaces and the IEntity database entity.**
   >*This library contains the basic interfaces for working with databases.*
 
   >*It is assumed that the library will be used in conjunction with other libraries to quickly deploy microservices: "**AspNetCoreMicroserviceInitializer.TradingDesk**" and "**AspNetCoreMicroserviceInitializer.Registrations**".*
 
-  >*For more information, see https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer*
+  >*The most up-to-date documentation on GitHub: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer*
 
 ## Functional features
 - **Various interfaces for working with the database.**

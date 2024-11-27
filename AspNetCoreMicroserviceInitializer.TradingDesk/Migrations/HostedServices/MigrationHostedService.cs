@@ -1,5 +1,7 @@
 ﻿using AspNetCoreMicroserviceInitializer.TradingDesk.Interfaces;
+using AspNetCoreMicroserviceInitializer.TradingDesk.Settings;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreMicroserviceInitializer.TradingDesk.Migrations.HostedServices;
 
@@ -14,13 +16,28 @@ public class MigrationHostedService : IHostedService
     private readonly IMigrator _migrator;
 
     /// <summary>
+    /// Интерфейс для работы с жизненным циклом приложения.
+    /// </summary>
+    private readonly IHostApplicationLifetime _hostApplicationLifetime;
+
+    /// <summary>
+    /// Модель настроек мигратора.
+    /// </summary>
+    private readonly MigratorSettings _migratorSettings;
+
+    /// <summary>
     /// Создание <see cref="MigrationHostedService"/>.
     /// </summary>
     /// <param name="migrator">Мигратор типа <see cref="IMigrator"/>.</param>
     /// <param name="hostApplicationLifetime">Интерфейс для работы с жизненным циклом приложения.</param>
-    public MigrationHostedService(IMigrator migrator)
+    public MigrationHostedService(
+        IMigrator migrator,
+        IHostApplicationLifetime hostApplicationLifetime,
+        IOptions<MigratorSettings> migratorSettings)
     {
         _migrator = migrator;
+        _hostApplicationLifetime = hostApplicationLifetime;
+        _migratorSettings = migratorSettings.Value;
     }
 
     /// <summary>
@@ -29,6 +46,11 @@ public class MigrationHostedService : IHostedService
     /// <param name="cancellationToken">Токен отмены.</param>
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        if (_migratorSettings.IsStopApplicationAfterApplyMigrations)
+        {
+            _hostApplicationLifetime.ApplicationStarted.Register(o => _hostApplicationLifetime.StopApplication(), null);
+        }
+
         await _migrator.MigrateAsync(cancellationToken);
     }
 
