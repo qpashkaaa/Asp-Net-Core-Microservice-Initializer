@@ -363,6 +363,7 @@ _____
 ![image](https://github.com/user-attachments/assets/3552c26b-f217-4850-9756-64994c21e735)
 _____
 
+> If you get an error: 'Could not find file '{Project_Path}\bin\Debug\net8.0\DockerTemplates\docker-compose.template'.', then you can solve it by simply rebuilding the solution, or if you have already copied the docker-compose and develop.env files to the desired directory, simply remove the method call from WebApplicationFacade in your Program.cs .InitBaseDockerComposeFiles(dockerComposeModules)
 
 *Program.cs*
 ```C#
