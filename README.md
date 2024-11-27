@@ -337,34 +337,6 @@ public class DateTimeTask : IHangfireBackgroundTask
 ```
 
 - **Example of creating docker files - docker-compose.yml and develop.env.**
-
-> To use the creation of docker compose template files, follow these steps (see screenshots):
-> - add the AspNetCoreMicroserviceInitializer.TradingDesk library to the project.
-> - after being added to your project, the "DockerTemplates" folder should appear in solution explorer.
-> - right-click on each of the files (docker.template and docker-compose.template) and select Copy To Output Directory -> Copy Always.
-> - after making the settings, using the WebApplicationFacade method .InitBaseDockerComposeFiles() and running the installed application, you can get the files in {projectFolder}/bin/Debug/net8.0/DockerTemplates.
-
-![image](https://github.com/user-attachments/assets/c1c85d71-e93a-4281-bf30-10cf180cfdce)
-_____
-![image](https://github.com/user-attachments/assets/959eb458-7ab0-43e4-8138-c4419821f73d)
-_____
-![image](https://github.com/user-attachments/assets/b1599c53-36ce-4a95-adfe-27325727170d)
-_____
-![image](https://github.com/user-attachments/assets/b05d48e4-db96-43a4-8a38-30badb0e012c)
-_____
-![image](https://github.com/user-attachments/assets/10590f72-0762-4842-8fec-1c1fcfffe558)
-_____
-![image](https://github.com/user-attachments/assets/330a009b-d899-465f-8795-54c1deb6cdd3)
-_____
-![image](https://github.com/user-attachments/assets/6869d0ce-9971-4698-b8cd-99f4b2f5bf6f)
-_____
-![image](https://github.com/user-attachments/assets/a3d4fa50-be79-4221-bbde-a629750711ef)
-_____
-![image](https://github.com/user-attachments/assets/3552c26b-f217-4850-9756-64994c21e735)
-_____
-
-> If you get an error: 'Could not find file '{Project_Path}\bin\Debug\net8.0\DockerTemplates\docker-compose.template'.', then you can solve it by simply rebuilding the solution, or if you have already copied the docker-compose and develop.env files to the desired directory, simply remove the method call from WebApplicationFacade in your Program.cs .InitBaseDockerComposeFiles(dockerComposeModules)
-
 *Program.cs*
 ```C#
 var modules = new HashSet<WebApplicationModules> 
