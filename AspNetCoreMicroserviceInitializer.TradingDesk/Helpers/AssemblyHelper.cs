@@ -66,15 +66,17 @@ public static class AssemblyHelper
         var logger = loggerFactory?.CreateLogger(typeof(AssemblyHelper));
         
         var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var allAssemblyFiles = Directory.GetFiles(basePath, "*.dll");
+        var allAssemblyFiles = Directory.GetFiles(basePath, "*.dll")
+            .Where(file => !Path.GetFileName(file).StartsWith("System.", StringComparison.OrdinalIgnoreCase) &&
+                           !Path.GetFileName(file).StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase));
         var assembliesWithSpecificType = new List<Assembly>();
 
         foreach (var assemblyPath in allAssemblyFiles)
         {
+            var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
+
             try
             {
-                var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
-
                 var assembly = Assembly.Load(assemblyName);
 
                 bool containsSpecificType = conditionFunction(assembly);
@@ -91,7 +93,7 @@ public static class AssemblyHelper
             }
             catch (Exception ex)
             {
-                logger?.LogInformation(ex, "Не удалось загрузить Assembly.");
+                logger?.LogInformation($"Не удалось загрузить Assembly: {assemblyName}, но если в этом Assembly нет классов, которые используют функционал библиотек для автоматической регистрации (преимущественно атрибуты), то данное исключение не является критическим и его можно игнорировать.", ex.Message);
             }
         }
 
