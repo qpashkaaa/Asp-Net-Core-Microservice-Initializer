@@ -1,8 +1,8 @@
-﻿using AspNetCoreMicroserviceInitializer.Database.Interfaces;
+﻿using AspNetCoreMicroserviceInitializer.Database.Interfaces.Sql;
 
 namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database;
 
-public class DummyModel : IEntity<long>
+public class DummyModel : ISqlEntity<long>
 {
     public long Id { get; set; }
 
@@ -15,4 +15,8 @@ public class DummyModel : IEntity<long>
     public List<string>? AdditionalMessages { get; set; }
 
     public DateTime CreationDate { get; set; }
+
+    public DateTime LastUpdateDate { get; set; }
+
+    public bool IsDeleted { get; set; }
 }

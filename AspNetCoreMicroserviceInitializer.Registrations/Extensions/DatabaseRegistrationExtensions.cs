@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AspNetCoreMicroserviceInitializer.Registrations.Helpers;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -40,16 +41,15 @@ internal static class DatabaseRegistrationExtensions
 
                 addDbContextMethod?.Invoke(null, new[] { services, null, (object)ServiceLifetime.Scoped, (object)ServiceLifetime.Scoped });
             });
-        
-        assemblies.AddRange(AssemblyHelper.LoadAssembliesWithSpecificAttribute<AutoRegisterRepositoryAttribute>(false, serviceProvider));
-        
-        AssemblyHelper.FindTypesByConditionAndDoActions(
-            assemblies,
-            assembly => assembly.GetTypes().Where(t => t.GetCustomAttributes<AutoRegisterRepositoryAttribute>(false).Any()),
-            type =>
-            {
-                services.AddScoped(type);
-            });
+
+        var repositoriesInfo = ServicesRegistrationHelper
+            .GetOrderedServicesTypes<AutoRegisterRepositoryAttribute>(services);
+
+        foreach (var serviceInfo in repositoriesInfo)
+        {
+            ServicesRegistrationHelper
+                .RegisterService(services, serviceInfo);
+        }
 
         return services;
     }

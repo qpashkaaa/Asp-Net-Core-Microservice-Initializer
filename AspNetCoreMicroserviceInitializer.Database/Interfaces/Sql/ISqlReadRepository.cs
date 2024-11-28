@@ -1,11 +1,11 @@
-﻿namespace AspNetCoreMicroserviceInitializer.Database.Interfaces;
+﻿namespace AspNetCoreMicroserviceInitializer.Database.Interfaces.Sql;
 
 /// <summary>
 /// Интерфейс репозитория чтения.
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности.</typeparam>
-public interface IReadRepository<TEntity> 
-    where TEntity : IEntity<long>
+public interface ISqlReadRepository<TEntity>
+    where TEntity : ISqlEntity<long>
 {
     /// <summary>
     /// Метод получения всех записей из таблицы.
@@ -18,7 +18,9 @@ public interface IReadRepository<TEntity>
     /// </summary>
     /// <param name="ids">Массив идентификаторов типа <see cref="IEnumerable{long}"/>.</param>
     /// <returns>Коллекцию типа <see cref="IEnumerable{TEntity}"/>.</returns>
-    Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<long> ids);
+    Task<IEnumerable<TEntity>> GetByIdsAsync(
+        IEnumerable<long> ids,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Получить запись по идентификатору.
@@ -33,12 +35,23 @@ public interface IReadRepository<TEntity>
     /// <param name="pageNumber">Номер строки.</param>
     /// <param name="pageSize">Количество записей.</param>
     /// <returns>Коллекцию типа <see cref="IEnumerable{TEntity}"/>.</returns>
-    Task<IEnumerable<TEntity>> GetPageAsync(int pageNumber, int pageSize);
+    Task<IEnumerable<TEntity>> GetPageAsync(
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Проверить существование элемента.
     /// </summary>
     /// <param name="id">Идентификатор.</param>
     /// <returns><see langword="true"/> если элемент существует, <see langword="false"/> если элемент не существует.</returns>
-    Task<bool> IsExistsAsync(long id);
+    Task<bool> IsExistsAsync(
+        long id,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Метод получения количества записей в таблице.
+    /// </summary>
+    /// <returns>Количество записей в таблице.</returns>
+    Task<int> GetCountAsync(CancellationToken cancellationToken = default);
 }
