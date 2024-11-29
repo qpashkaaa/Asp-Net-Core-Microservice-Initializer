@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreMicroserviceInitializer.Database.Interfaces.Sql;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database;
+namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.Sql;
 
 [Route("api/[controller]")]
 [ApiController]
 public class DatabaseController : ControllerBase
 {
-    private readonly DummyRepository _dummyRepository;
+    private readonly ISqlRepository<DummyModel> _dummyRepository;
 
-    public DatabaseController(DummyRepository dummyRepository)
+    public DatabaseController(ISqlRepository<DummyModel> dummyRepository)
     {
         _dummyRepository = dummyRepository;
     }

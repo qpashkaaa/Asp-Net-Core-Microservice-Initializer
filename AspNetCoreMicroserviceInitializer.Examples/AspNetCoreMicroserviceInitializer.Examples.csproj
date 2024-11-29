@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.Database\AspNetCoreMicroserviceInitializer.Database.csproj" />
     <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.Registrations\AspNetCoreMicroserviceInitializer.Registrations.csproj" />
+    <ProjectReference Include="..\AspNetCoreMicroserviceInitializer.TradingDesk\AspNetCoreMicroserviceInitializer.TradingDesk.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="WebApplicationModulesElements\Cors %28using by appsettings%29\" />
     <Folder Include="WebApplicationModulesElements\Migrations %28using by WebApplicationFacade and created migrations%29\" />
     <Folder Include="WebApplicationModulesElements\EnvironmentVariables %28using by WebApplicationFacade%29\" />
@@ -19,6 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
   </ItemGroup>
 

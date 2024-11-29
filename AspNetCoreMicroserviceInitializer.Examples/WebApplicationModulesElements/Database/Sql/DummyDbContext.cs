@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database;
+namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.Sql;
 
 [AutoRegisterDbContext]
 public class DummyDbContext : DbContext

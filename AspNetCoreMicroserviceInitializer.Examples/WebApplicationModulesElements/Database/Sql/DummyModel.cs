@@ -1,6 +1,6 @@
 ﻿using AspNetCoreMicroserviceInitializer.Database.Interfaces.Sql;
 
-namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database;
+namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.Sql;
 
 public class DummyModel : ISqlEntity<long>
 {

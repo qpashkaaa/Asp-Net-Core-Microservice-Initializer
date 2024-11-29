@@ -2,7 +2,9 @@
 using AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Services;
 using AspNetCoreMicroserviceInitializer.Registrations.Builders;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Enums;
+using MongoDB.Driver;
 using Serilog.Filters;
+using StackExchange.Redis;
 
 namespace AspNetCoreMicroserviceInitializer.Examples;
 
@@ -35,6 +37,25 @@ public class Program
             .AddAdditionalModules(builder =>
             {
                 builder.Services.AddTransient<AdditionalGuidService>();
+
+                builder.Services.AddSingleton<IMongoClient>(sp =>
+                {
+                    var connectionString = "mongodb://localhost:27017";
+                    return new MongoClient(connectionString);
+                });
+
+                builder.Services.AddScoped(sp =>
+                {
+                    var client = sp.GetRequiredService<IMongoClient>();
+                    var databaseName = "microserviceDatabase";
+                    return client.GetDatabase(databaseName);
+                });
+
+                builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+                {
+                    var connectionString = "localhost:6379";
+                    return ConnectionMultiplexer.Connect(connectionString);
+                });
             })
             .AddAdditionalSerilogConfiguration((builder, serviceProvider, configuration) =>
             {
