@@ -17,7 +17,7 @@ internal static class ServicesRegistrationHelper
     /// </summary>
     /// <param name="services">Коллекция сервисов.</param>
     /// <param name="serviceInfo">Модель с информацией о сервисе.</param>
-    public static void RegisterService(
+    internal static void RegisterService(
         IServiceCollection services,
         ServiceTypeInfo serviceInfo)
     {
@@ -65,7 +65,7 @@ internal static class ServicesRegistrationHelper
     /// <see langword="null"/>, если сервис не реализует интерфейс <see cref="IServiceImplementationFactory{TService}"/>,
     /// <see cref="Func{IServiceProvider, object}"/>, если у сервиса реализован интерфейс <see cref="IServiceImplementationFactory{TService}"/> и корректно установлен дженерик-тип.
     /// </returns>
-    public static Func<IServiceProvider, object>? GetImplementationFactory(Type type)
+    internal static Func<IServiceProvider, object>? GetImplementationFactory(Type type)
     {
         var implementationFactoryInterface = type
             .GetInterfaces()
@@ -103,7 +103,7 @@ internal static class ServicesRegistrationHelper
     /// <typeparam name="TAttribute">Тип атрибута, по которому нужно искать сервисы.</typeparam>
     /// <param name="services">Коллекция сервисов.</param>
     /// <returns>Отсортированный массив <see cref="IOrderedEnumerable{ServiceTypeInfo}"/> сервисов, которые требуют регистрацию.</returns>
-    public static IOrderedEnumerable<ServiceTypeInfo> GetOrderedServicesTypes<TAttribute>(IServiceCollection services)
+    internal static IOrderedEnumerable<ServiceTypeInfo> GetOrderedServicesTypes<TAttribute>(IServiceCollection services)
         where TAttribute : AutoRegisterServiceBaseAttribute
     {
         var servicesInfo = new List<ServiceTypeInfo>();
