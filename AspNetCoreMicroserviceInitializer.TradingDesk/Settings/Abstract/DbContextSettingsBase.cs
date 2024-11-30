@@ -1,16 +1,16 @@
 ﻿namespace AspNetCoreMicroserviceInitializer.TradingDesk.Settings.Abstract;
 
 /// <summary>
-/// Настройки контекста БД PostgreSql.
+/// Настройки контекста БД.
 /// </summary>
-public abstract class DbContextSettings
+public abstract class DbContextSettingsBase : DbSettingsBase
 {
     /// <summary>
     /// Строка подключения.
-    ///
+    /// 
     /// Пример: Host=localhost:5555; Database=postgres; Username=postgres; Password=postgres
     /// </summary>
-    public required string ConnectionString { get; init; } = "Host=localhost:5555; Database=postgres; Username=postgres; Password=postgres";
+    public override required string ConnectionString { get; init; } = "Host=localhost:5555; Database=postgres; Username=postgres; Password=postgres";
 
     /// <summary>
     /// Наименование схемы.

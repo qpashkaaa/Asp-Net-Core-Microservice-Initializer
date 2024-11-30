@@ -6,8 +6,8 @@ namespace AspNetCoreMicroserviceInitializer.Database.Interfaces.MongoDb;
 /// Интерфейс репозитория записи данных в MongoDb.
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности.</typeparam>
-public interface IMongoDbWriteRepository<TEntity>
-    where TEntity : IMongoDbEntity
+public interface IMongoWriteRepository<TEntity>
+    where TEntity : IMongoEntity
 {
     /// <summary>
     /// Метод вставки записи в таблицу.

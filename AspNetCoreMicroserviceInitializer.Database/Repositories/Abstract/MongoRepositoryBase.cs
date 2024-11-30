@@ -8,11 +8,16 @@ namespace AspNetCoreMicroserviceInitializer.Database.Repositories.Abstract;
 /// <summary>
 /// Абстрактный класс базового MongoDb репозитория.
 /// </summary>
-public abstract class MongoDbRepositoryBase<TEntity> : IMongoDbRepository<TEntity>
-    where TEntity : class, IMongoDbEntity
+public abstract class MongoRepositoryBase<TEntity> : IMongoRepository<TEntity>
+    where TEntity : class, IMongoEntity
 {
     /// <summary>
-    /// База данных MongoDb.
+    /// Клиент для рабооты с MongoDb.
+    /// </summary>
+    protected readonly IMongoClient _client;
+
+    /// <summary>
+    /// База данных для рабооты с MongoDb.
     /// </summary>
     protected readonly IMongoDatabase _database;
 
@@ -22,15 +27,20 @@ public abstract class MongoDbRepositoryBase<TEntity> : IMongoDbRepository<TEntit
     protected readonly IMongoCollection<TEntity> _collection;
 
     /// <summary>
-    /// Конструктор <see cref="MongoDbRepositoryBase{TEntity}"/>.
+    /// Конструктор <see cref="MongoRepositoryBase{TEntity}"/>.
     /// </summary>
-    /// <param name="database">База данных MongoDb.</param>
-    protected MongoDbRepositoryBase(IMongoDatabase database)
+    /// <param name="clientFactory">Фабрика для получения клиента MongoDb.</param>
+    /// <param name="connectionString">Строка подключения к базе данных.</param>
+    /// <param name="databaseName">Имя базы данных.</param>
+    protected MongoRepositoryBase(
+        IMongoClientFactory clientFactory, 
+        string connectionString,
+        string databaseName)
     {
-        _database = database;
+        _client = clientFactory.GetClientByConnectionString(connectionString);
+        _database = _client.GetDatabase(databaseName);
 
         var collectionName = MongoCollectionNameResolver.GetCollectionName<TEntity>();
-
         _collection = _database.GetCollection<TEntity>(collectionName);
     }
 

@@ -1,9 +1,9 @@
 ﻿using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Settings.Abstract;
 
-namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.Sql;
+namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.MongoDb;
 
 [AutoRegisterConfigSettings]
-public class DummyDbContextSettings : DbContextSettingsBase
+public class DummyFirstMongoSettings : MongoSettingsBase
 {
 }

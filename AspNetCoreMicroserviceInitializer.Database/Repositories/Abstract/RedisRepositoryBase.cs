@@ -27,14 +27,16 @@ public abstract class RedisRepositoryBase<TEntity> : IRedisRepository<TEntity>
     /// <summary>
     /// Конструктор репозитория.
     /// </summary>
-    /// <param name="multiplexer">Модель для подключения к БД Redis.</param>
+    /// <param name="clientFactory">Фабрика для получения клиента Redis.</param>
+    /// <param name="connectionString">Строка подключения.</param>
     /// <param name="keyPrefix">Префикс ключа для унификации.</param>
     protected RedisRepositoryBase(
-        IConnectionMultiplexer multiplexer, 
+        IRedisClientFactory clientFactory,
+        string connectionString,
         string keyPrefix)
     {
-        _multiplexer = multiplexer;
-        _database = multiplexer.GetDatabase();
+        _multiplexer = clientFactory.GetClientByConnectionString(connectionString);
+        _database = _multiplexer.GetDatabase();
         _keyPrefix = keyPrefix;
     }
 

@@ -200,8 +200,9 @@ public class WebApplicationFacade
                 case WebApplicationModules.Settings:
                     _builder.Services.AddSettings(_builder.Configuration);
                     break;
-                case WebApplicationModules.Database:
-                    _builder.Services.AddDbServices();
+                case WebApplicationModules.SqlDatabase:
+                    _builder.Services.AddDbContexts();
+                    _builder.Services.AddRepositories();
                     break;
                 case WebApplicationModules.Swagger:
                     _builder.Services.AddSwaggerGen();
@@ -228,11 +229,19 @@ public class WebApplicationFacade
                 case WebApplicationModules.EndpointsApiExplorer:
                     _builder.Services.AddEndpointsApiExplorer();
                     break;
-                case WebApplicationModules.Migrations:
+                case WebApplicationModules.EFMigrations:
                     _builder.AddMigrator();
                     break;
                 case WebApplicationModules.Services:
                     _builder.Services.AddServices();
+                    break;
+                case WebApplicationModules.MongoDatabase:
+                    _builder.Services.AddMongoServices(_builder.Configuration);
+                    _builder.Services.AddRepositories();
+                    break;
+                case WebApplicationModules.RedisDatabase:
+                    _builder.Services.AddRedisServices(_builder.Configuration);
+                    _builder.Services.AddRepositories();
                     break;
                 default:
                     continue;
@@ -281,10 +290,10 @@ public class WebApplicationFacade
     /// </summary>
     private void AddModulesDependencies()
     {
-        if (_modules.Contains(WebApplicationModules.Migrations))
+        if (_modules.Contains(WebApplicationModules.EFMigrations))
         {
             _modules.Add(WebApplicationModules.Settings);
-            _modules.Add(WebApplicationModules.Database);
+            _modules.Add(WebApplicationModules.SqlDatabase);
         }
 
         if (_modules.Contains(WebApplicationModules.Hangfire))
@@ -296,6 +305,13 @@ public class WebApplicationFacade
         {
             _modules.Add(WebApplicationModules.EndpointsApiExplorer);
             _modules.Add(WebApplicationModules.Controllers);
+        }
+
+        if (_modules.Contains(WebApplicationModules.SqlDatabase) ||
+            _modules.Contains(WebApplicationModules.MongoDatabase) ||
+            _modules.Contains(WebApplicationModules.RedisDatabase))
+        {
+            _modules.Add(WebApplicationModules.Settings);
         }
     }
 }

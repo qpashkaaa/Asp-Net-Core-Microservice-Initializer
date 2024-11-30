@@ -9,22 +9,38 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 [ApiController]
 public class DummyRedisController : ControllerBase
 {
-    private readonly IRedisRepository<DummyRedisEntity> _repository;
+    private readonly IRedisRepository<DummyRedisEntity> _firstRepository;
+    private readonly DummyRedisSecondRepository _secondRepository;
 
-    public DummyRedisController(IRedisRepository<DummyRedisEntity> repository)
+    public DummyRedisController(
+        IRedisRepository<DummyRedisEntity> repository,
+        DummyRedisSecondRepository secondRepository)
     {
-        _repository = repository;
+        _firstRepository = repository;
+        _secondRepository = secondRepository;
     }
 
-    [HttpPost("InsertAsync")]
+    [HttpPost("InsertAsyncFirst")]
     public async Task InsertAsync(DummyRedisEntity entity)
     {
-        await _repository.InsertAsync(entity);
+        await _firstRepository.InsertAsync(entity);
     }
 
-    [HttpGet("GetAllAsync")]
+    [HttpGet("GetAllAsyncFirts")]
     public async Task<DummyRedisEntity?> GetByKeyAsync(string key)
     {
-        return await _repository.GetByKeyAsync(key);
+        return await _firstRepository.GetByKeyAsync(key);
+    }
+
+    [HttpPost("InsertAsyncSecond")]
+    public async Task InsertAsyncSecond(DummyRedisEntity entity)
+    {
+        await _secondRepository.InsertAsync(entity);
+    }
+
+    [HttpGet("GetAllAsyncSecond")]
+    public async Task<DummyRedisEntity?> GetByKeyAsyncSecond(string key)
+    {
+        return await _secondRepository.GetByKeyAsync(key);
     }
 }

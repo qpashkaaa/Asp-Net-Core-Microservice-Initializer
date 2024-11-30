@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Database.MongoDb;
 
 [MongoCollection("TestCollection")]
-public class DummyMongoDbEntity : IMongoDbEntity
+public class DummyMongoDbEntity : IMongoEntity
 {
     [BsonId]
     public ObjectId Id { get; set; }

@@ -7,8 +7,7 @@ namespace AspNetCoreMicroserviceInitializer.Database.Interfaces.MongoDb;
 /// <summary>
 /// Интерфейс базовой MongoDb сущности.
 /// </summary>
-/// <typeparam name="TId">Тип Id.</typeparam>
-public interface IMongoDbEntity : IEntity
+public interface IMongoEntity : IEntity
 {
     /// <summary>
     /// Идентификатор.

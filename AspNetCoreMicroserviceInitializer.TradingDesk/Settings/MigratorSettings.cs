@@ -7,7 +7,7 @@ namespace AspNetCoreMicroserviceInitializer.TradingDesk.Settings;
 /// Настройки мигратора.
 /// </summary>
 [AutoRegisterConfigSettings]
-[ConfigSettingsModule(WebApplicationModules.Migrations)]
+[ConfigSettingsModule(WebApplicationModules.EFMigrations)]
 public class MigratorSettings
 {
     /// <summary>

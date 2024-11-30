@@ -6,8 +6,8 @@ namespace AspNetCoreMicroserviceInitializer.Database.Interfaces.MongoDb;
 /// <summary>
 /// Интерфейс репозитория для чтения данных из MongoDB.
 /// </summary>
-public interface IMongoDbReadRepository<TEntity>
-    where TEntity : IMongoDbEntity
+public interface IMongoReadRepository<TEntity>
+    where TEntity : IMongoEntity
 {
     /// <summary>
     /// Метод получения всех записей из таблицы.

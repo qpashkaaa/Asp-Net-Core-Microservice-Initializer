@@ -3,9 +3,9 @@
 /// <summary>
 /// Базовый интерфейс репозитория MongoDb.
 /// </summary>
-public interface IMongoDbRepository<TEntity> :
-    IMongoDbReadRepository<TEntity>,
-    IMongoDbWriteRepository<TEntity>
-    where TEntity : IMongoDbEntity
+public interface IMongoRepository<TEntity> :
+    IMongoReadRepository<TEntity>,
+    IMongoWriteRepository<TEntity>
+    where TEntity : IMongoEntity
 {
 }

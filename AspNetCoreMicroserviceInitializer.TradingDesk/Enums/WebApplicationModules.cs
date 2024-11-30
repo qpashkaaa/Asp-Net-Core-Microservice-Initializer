@@ -41,7 +41,7 @@ public enum WebApplicationModules
     Services = 1,
 
     /// <summary>
-    /// Метод добавления в приложение модуля для работы с базами данных.
+    /// Модуль добавления в приложение модуля для работы с Sql базами данных.
     ///
     /// Для корректной работы данного модуля необходимо:
     /// 1. Создать модели <see cref="DbContext"/>.
@@ -50,7 +50,7 @@ public enum WebApplicationModules
     /// 4. Присвоить моделям репозиториев <see cref="AutoRegisterRepositoryAttribute"/>.
     /// </summary>
     /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибуты <see cref="AutoRegisterDbContextAttribute"/> и <see cref="AutoRegisterRepositoryAttribute"/> (регистрация репозиториев производится как AddScoped).</remarks>
-    Database = 2,
+    SqlDatabase = 2,
 
     /// <summary>
     /// Модуль для автоматической регистрации HealthChecks.
@@ -128,10 +128,28 @@ public enum WebApplicationModules
     /// 2. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
     /// 3. Создать миграции, используя команду <code>dotnet ef migrations add InitialCreate --project your-project/your-project.csproj --startup-project your-project/your-project.csproj --output-dir Migrations</code>.
     /// </summary>
-    Migrations = 11,
+    EFMigrations = 11,
 
     /// <summary>
     /// Модуль контроллеров.
     /// </summary>
-    Controllers = 12
+    Controllers = 12,
+
+    /// <summary>
+    /// Модуль базы данных MongoDb.
+    /// 
+    /// Для корректной работы модуля необходимо:
+    /// 1. Создать модели репозиториев, унаследованных от MongoRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="MongoSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек MongoDb в файле appsettings.json.
+    /// </summary>
+    MongoDatabase = 13,
+
+    /// <summary>
+    /// Модуль базы данных Redis.
+    /// 1. Создать модели репозиториев, унаследованных от RedisRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="RedisSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек Redis в файле appsettings.json.
+    /// </summary>
+    RedisDatabase = 14
 }

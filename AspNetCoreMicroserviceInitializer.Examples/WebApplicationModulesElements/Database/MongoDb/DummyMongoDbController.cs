@@ -7,22 +7,38 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 [ApiController]
 public class DummyMongoDbController : ControllerBase
 {
-    private readonly IMongoDbRepository<DummyMongoDbEntity> _repository;
+    private readonly IMongoRepository<DummyMongoDbEntity> _firstRepository;
+    private readonly DummySecondMongoDbRepository _secondRepository;
 
-    public DummyMongoDbController(IMongoDbRepository<DummyMongoDbEntity> repository)
+    public DummyMongoDbController(
+        IMongoRepository<DummyMongoDbEntity> firstRepository,
+        DummySecondMongoDbRepository secondRepository)
     {
-        _repository = repository;
+        _firstRepository = firstRepository;
+        _secondRepository = secondRepository;
     }
 
-    [HttpPost("InsertAsync")]
+    [HttpPost("InsertAsyncFirst")]
     public async Task InsertAsync(DummyMongoDbEntity entity)
     {
-        await _repository.InsertAsync(entity);
+        await _firstRepository.InsertAsync(entity);
     }
 
-    [HttpGet("GetAllAsync")]
+    [HttpGet("GetAllAsyncFirst")]
     public async Task<IEnumerable<DummyMongoDbEntity>> GetAllAsync()
     {
-        return await _repository.GetAllAsync();
+        return await _firstRepository.GetAllAsync();
+    }
+
+    [HttpGet("GetAllAsyncSecond")]
+    public async Task<IEnumerable<DummyMongoDbEntity>> GetAllAsyncSecond()
+    {
+        return await _secondRepository.GetAllAsync();
+    }
+
+    [HttpPost("InsertAsyncSecond")]
+    public async Task InsertAsyncSecond(DummyMongoDbEntity entity)
+    {
+        await _secondRepository.InsertAsync(entity);
     }
 }

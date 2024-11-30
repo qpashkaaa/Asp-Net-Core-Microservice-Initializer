@@ -15,7 +15,7 @@ internal static class MongoCollectionNameResolver
     /// <typeparam name="TEntity">Тип модели.</typeparam>
     /// <returns>Коллекция в формате строки.</returns>
     public static string GetCollectionName<TEntity>()
-        where TEntity : IMongoDbEntity
+        where TEntity : IMongoEntity
     {
         var type = typeof(TEntity);
 

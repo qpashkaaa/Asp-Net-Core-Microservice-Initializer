@@ -102,9 +102,9 @@ public static class AssemblyHelper
 
     /// <summary>
     /// Найти в сборках типы по условию и выполнить действия с ними (регистрация или использование в методе и т.д.).
+    /// </summary>
     /// <param name="typesConditionFunction">Функция для поиска типов по сборкам.</param>
     /// <param name="typesAction">Действие, которое нужно выполнить с найденными типами.</param>
-    /// </summary>
     public static void FindTypesByConditionAndDoActions(
         IEnumerable<Assembly?> assemblies, 
         Func<Assembly, IEnumerable<Type>> typesConditionFunction,
