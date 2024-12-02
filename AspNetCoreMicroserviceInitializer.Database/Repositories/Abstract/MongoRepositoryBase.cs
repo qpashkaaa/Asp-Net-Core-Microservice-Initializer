@@ -183,6 +183,8 @@ public abstract class MongoRepositoryBase<TEntity> : IMongoRepository<TEntity>
         TEntity entity, 
         CancellationToken cancellationToken = default)
     {
+        entity.CreationDate = DateTime.UtcNow;
+
         await _collection
             .InsertOneAsync(entity, cancellationToken: cancellationToken);
     }
@@ -195,6 +197,13 @@ public abstract class MongoRepositoryBase<TEntity> : IMongoRepository<TEntity>
         IEnumerable<TEntity> entities, 
         CancellationToken cancellationToken = default)
     {
+        var utcNow = DateTime.UtcNow;
+
+        foreach (var entity in entities) 
+        {
+            entity.CreationDate = utcNow;
+        }
+
         await _collection
             .InsertManyAsync(entities, cancellationToken: cancellationToken);
     }
@@ -207,6 +216,8 @@ public abstract class MongoRepositoryBase<TEntity> : IMongoRepository<TEntity>
         TEntity entity, 
         CancellationToken cancellationToken)
     {
+        entity.LastUpdateDate = DateTime.UtcNow;
+
         await _collection.ReplaceOneAsync(
             e => e.Id == entity.Id, entity,
             cancellationToken: cancellationToken);
