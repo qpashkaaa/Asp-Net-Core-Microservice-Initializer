@@ -24,7 +24,7 @@ The most up-to-date documentation on GitHub Wiki: https://github.com/qpashkaaa/A
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
     <PackageReleaseNotes>Big changes to the library group:
 
 Updated documentation: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki.
