@@ -5,9 +5,9 @@
 
 **Docs**:
 - [Wiki](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki)
-- [AspNetCoreMicroserviceInitializer.Registrations](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(RU)#aspnetcoremicroserviceinitializerregistrations)
-- [AspNetCoreMicroserviceInitializer.TradingDesk](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(RU)#aspnetcoremicroserviceinitializertradingdesk)
-- [AspNetCoreMicroserviceInitializer.Database](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(RU)#aspnetcoremicroserviceinitializerdatabase)
+- [AspNetCoreMicroserviceInitializer.Registrations Wiki](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(ENG)#aspnetcoremicroserviceinitializerregistrations)
+- [AspNetCoreMicroserviceInitializer.TradingDesk Wiki](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(ENG)#aspnetcoremicroserviceinitializertradingdesk)
+- [AspNetCoreMicroserviceInitializer.Database Wiki](https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki/Docs-(ENG)#aspnetcoremicroserviceinitializerdatabase)
 
 ## Authors
 - [Pavel Roslyakov](https://github.com/qpashkaaa)
