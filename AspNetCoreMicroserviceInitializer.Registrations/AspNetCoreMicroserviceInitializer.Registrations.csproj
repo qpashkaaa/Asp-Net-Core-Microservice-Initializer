@@ -4,28 +4,34 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Title>The library of the basic initializer of the .NET 8 microservice. WebApplicationFacade has been added to the library, which facilitates the deployment of a microservice.</Title>
+        <Title>This library adds a new class `WebApplicationFacade`, which helps you quickly deploy the `.NET 8` microservice and add the desired modules to the application.</Title>
         <Authors>Pavel Roslyakov</Authors>
-        <Description>This library upgrade the existing WebApplicationBuilder and allows you to add the desired functionality to the application in just a couple of lines. This library using reflection and custom attributes to connect application modules, thereby encapsulating most of the code that is needed to initialize these modules in the microservice.
+        <Description>This library adds a new class `WebApplicationFacade`, which helps you quickly deploy the `.NET 8` microservice and add the desired modules to the application.
 
-The most up-to-date documentation on GitHub: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer.</Description>
+The most up-to-date documentation on GitHub Wiki: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki.</Description>
         <PackageProjectUrl>https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer</PackageProjectUrl>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
         <PackageTags>.NET 8, Microservice, Microservices, docker-compose, Docker Compose, Docker, Initializer, Fast Start, AutoMappers, Cors, Hangfire, HealthChecks, Swagger, Serilog, Services, Migrator</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Version>1.1.0</Version>
+        <Version>1.2.0</Version>
         <PackageReleaseNotes>Big changes to the library group:
 
+Updated documentation: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki.
+
 AspNetCoreMicroserviceInitializer.Database
-- RepositoryBase's DbContext has been changed to protected.
+- Interfaces, custom clients, attributes and abstract repositories for MongoDB and Redis have been added.
+- The MongoCollectionAttribute has been added to specify the collection name.
+- Renamed the IEntity entity to ISqlEntity.
+- Renamed the IRepository and RepositoryBase to ISqlRepository and SqlRepositoryBase and similar entities.
+
 
 AspNetCoreMicroserviceInitializer.Registrations
-- added the ability to configure automatic shutdown of the application after performing actions when using the migrator (new configuration of the config).
+- Added the modules to automatically register WebApplicationModules.MongoDatabase and WebApplicationModules.RedisDatabase modules in WebApplicationFacade.
 
 AspNetCoreMicroserviceInitializer.TradingDesk
-- added the ability to configure automatic shutdown of the application after performing actions when using the migrator (new configuration of the config).
-- the creation of docker-compose files has been redesigned. Now they are made from base64, which is stored in the code.</PackageReleaseNotes>
+- The AutoRegister RepositoryAttribute has added the ability to pass the interface type and ServiceLifetime as parameters for registration in DI.
+- Basic configuration models have been added for using the MongoDB and Redis module (MongoSettingsBase, RedisSettingsBase).</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
