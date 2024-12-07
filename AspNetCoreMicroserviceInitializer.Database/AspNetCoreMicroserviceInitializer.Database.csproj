@@ -14,24 +14,8 @@ The most up-to-date documentation on GitHub Wiki: https://github.com/qpashkaaa/A
         <PackageTags>.NET 8, Microservice, Microservices, Database, Repository, IEntity, RepositoryInterfaces, EntityFramework</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
-        <Version>2.0.0</Version>
-        <PackageReleaseNotes>Big changes to the library group:
-
-Updated documentation: https://github.com/qpashkaaa/Asp-Net-Core-Microservice-Initializer/wiki.
-
-AspNetCoreMicroserviceInitializer.Database
-- Interfaces, custom clients, attributes and abstract repositories for MongoDB and Redis have been added.
-- The MongoCollectionAttribute has been added to specify the collection name.
-- Renamed the IEntity entity to ISqlEntity.
-- Renamed the IRepository and RepositoryBase to ISqlRepository and SqlRepositoryBase and similar entities.
-
-
-AspNetCoreMicroserviceInitializer.Registrations
-- Added the modules to automatically register WebApplicationModules.MongoDatabase and WebApplicationModules.RedisDatabase modules in WebApplicationFacade.
-
-AspNetCoreMicroserviceInitializer.TradingDesk
-- The AutoRegister RepositoryAttribute has added the ability to pass the interface type and ServiceLifetime as parameters for registration in DI.
-- Basic configuration models have been added for using the MongoDB and Redis module (MongoSettingsBase, RedisSettingsBase).</PackageReleaseNotes>
+        <Version>2.0.2</Version>
+        <PackageReleaseNotes>Changed the order of Enum in WebApplicationModules (change the order of registration).</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
