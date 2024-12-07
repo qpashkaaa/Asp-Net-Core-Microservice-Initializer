@@ -53,15 +53,30 @@ public enum WebApplicationModules
     SqlDatabase = 2,
 
     /// <summary>
-    /// Модуль для автоматической регистрации HealthChecks.
-    ///
-    /// Для корректной работы данного модуля необходимо:
-    /// 1. Добавить в приложение классы HealthChecks, унаследованные от <see cref="IHealthCheck"/> и присвоить им атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
-    /// 2. Создать в конфиге элемент модели настроек Health Checks <see cref="HealthChecksSettings"/>.
+    /// Модуль базы данных MongoDb.
+    /// 
+    /// Для корректной работы модуля необходимо:
+    /// 1. Создать модели репозиториев, унаследованных от MongoRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="MongoSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек MongoDb в файле appsettings.json.
     /// </summary>
-    /// <remarks>1. Регистрация моделей будет произведена автоматически, используя реализацию интерфейса <see cref="IHealthCheck"/> и атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
-    /// 2. Если в настройках конфига включен параметр <see cref="HealthChecksSettings.UIEnable"/>, то получить доступ к UI оболочке можно по URL: /healthchecks-ui</remarks>
-    HealthChecks = 3,
+    MongoDatabase = 3,
+
+    /// <summary>
+    /// Модуль базы данных Redis.
+    /// 1. Создать модели репозиториев, унаследованных от RedisRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="RedisSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек Redis в файле appsettings.json.
+    /// </summary>
+    RedisDatabase = 4,
+
+    /// <summary>
+    /// Модуль Serilog.
+    /// 
+    /// Настроить модуль можно в конфиге appsettings.json. Базовый конфиг для настроек Serilog можно проинициализировать, используя метод .InitBaseConfig() у WebApplicationFacade.
+    /// Обратиться к логгеру можно как используя интерфейс <see cref="ILogger{TCategoryName}"/>, так и используя статический класс <see cref="Serilog.Log"/>.
+    /// </summary>
+    Serilog = 5,
 
     /// <summary>
     /// Модуль автоматической регистрации <see cref="AutoMapper"/>.
@@ -73,7 +88,7 @@ public enum WebApplicationModules
     /// 4. Присвоить модели DTO атрибут <see cref="AutoRegisterProfileAttribute"/> и передать в его параметры необходимые типы моделей.
     /// </summary>
     /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterProfileAttribute"/>.</remarks>
-    AutoMappers = 4,
+    AutoMappers = 6,
 
     /// <summary>
     /// Модуль автоматической регистрации политики Cors.
@@ -81,7 +96,7 @@ public enum WebApplicationModules
     /// Для корректной работы данного модуля необходимо:
     /// 1. Создать в конфиге элемент модели настроек <see cref="CorsSettings"/>.
     /// </summary>
-    Cors = 5,
+    Cors = 7,
 
     /// <summary>
     /// Модуль для работы с фоновыми задачами Hangfire.
@@ -95,30 +110,22 @@ public enum WebApplicationModules
     /// 6. Присвоить задачам атрибут <see cref="AutoRegisterHangfireTaskAttribute"/> и передать в его параметры необходимый типы модели настроек.
     /// </summary>
     /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибут <see cref="AutoRegisterHangfireTaskAttribute"/>.</remarks>
-    Hangfire = 6,
+    Hangfire = 8,
     
     /// <summary>
     /// Модуль Swagger.
     /// </summary>
-    Swagger = 7,
-
-    /// <summary>
-    /// Модуль Serilog.
-    /// 
-    /// Настроить модуль можно в конфиге appsettings.json. Базовый конфиг для настроек Serilog можно проинициализировать, используя метод .InitBaseConfig() у WebApplicationFacade.
-    /// Обратиться к логгеру можно как используя интерфейс <see cref="ILogger{TCategoryName}"/>, так и используя статический класс <see cref="Serilog.Log"/>.
-    /// </summary>
-    Serilog = 8,
+    Swagger = 9,
 
     /// <summary>
     /// Модуль переменных окружения.
     /// </summary>
-    EnvironmentVariables = 9,
+    EnvironmentVariables = 10,
 
     /// <summary>
     /// Модуль конфигурации ApiExplorer (служба Minimal APIs).
     /// </summary>
-    EndpointsApiExplorer = 10,
+    EndpointsApiExplorer = 11,
 
     /// <summary>
     /// Модуль инициализации мигратора <see cref="Migrator"/> (применяет созданные миграции к БД) и проведения миграций при старте приложения с использованием <see cref="MigrationHostedService"/>.
@@ -128,28 +135,21 @@ public enum WebApplicationModules
     /// 2. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
     /// 3. Создать миграции, используя команду <code>dotnet ef migrations add InitialCreate --project your-project/your-project.csproj --startup-project your-project/your-project.csproj --output-dir Migrations</code>.
     /// </summary>
-    EFMigrations = 11,
+    EFMigrations = 12,
+
+    /// <summary>
+    /// Модуль для автоматической регистрации HealthChecks.
+    ///
+    /// Для корректной работы данного модуля необходимо:
+    /// 1. Добавить в приложение классы HealthChecks, унаследованные от <see cref="IHealthCheck"/> и присвоить им атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
+    /// 2. Создать в конфиге элемент модели настроек Health Checks <see cref="HealthChecksSettings"/>.
+    /// </summary>
+    /// <remarks>1. Регистрация моделей будет произведена автоматически, используя реализацию интерфейса <see cref="IHealthCheck"/> и атрибут <see cref="AutoRegisterHealthCheckAttribute"/>.
+    /// 2. Если в настройках конфига включен параметр <see cref="HealthChecksSettings.UIEnable"/>, то получить доступ к UI оболочке можно по URL: /healthchecks-ui</remarks>
+    HealthChecks = 13,
 
     /// <summary>
     /// Модуль контроллеров.
     /// </summary>
-    Controllers = 12,
-
-    /// <summary>
-    /// Модуль базы данных MongoDb.
-    /// 
-    /// Для корректной работы модуля необходимо:
-    /// 1. Создать модели репозиториев, унаследованных от MongoRepositoryBase.cs
-    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="MongoSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
-    /// 3. Создать автоматически или заполнить вручную модели настроек MongoDb в файле appsettings.json.
-    /// </summary>
-    MongoDatabase = 13,
-
-    /// <summary>
-    /// Модуль базы данных Redis.
-    /// 1. Создать модели репозиториев, унаследованных от RedisRepositoryBase.cs
-    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="RedisSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
-    /// 3. Создать автоматически или заполнить вручную модели настроек Redis в файле appsettings.json.
-    /// </summary>
-    RedisDatabase = 14
+    Controllers = 14
 }
