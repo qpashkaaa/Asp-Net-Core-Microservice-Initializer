@@ -1,4 +1,4 @@
-﻿using AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElements.Services.Interfaces;
+﻿using AspNetCoreMicroserviceInitializer.Database.Interfaces.MongoDb;
 using AspNetCoreMicroserviceInitializer.TradingDesk.Attributes;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -7,9 +7,9 @@ namespace AspNetCoreMicroserviceInitializer.Examples.WebApplicationModulesElemen
 [AutoRegisterHealthCheck]
 public class RandomHealthCheck : IHealthCheck
 {
-    private readonly IRandomGuidService _test;
+    private readonly IMongoClientFactory _test;
 
-    public RandomHealthCheck(IRandomGuidService test)
+    public RandomHealthCheck(IMongoClientFactory test)
     {
         _test = test;
     }

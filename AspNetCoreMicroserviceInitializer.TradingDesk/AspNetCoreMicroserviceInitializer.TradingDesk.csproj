@@ -24,7 +24,7 @@ The most up-to-date documentation on GitHub Wiki: https://github.com/qpashkaaa/A
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <PackageReleaseNotes>Changed the order of Enum in WebApplicationModules (change the order of registration).</PackageReleaseNotes>
   </PropertyGroup>
 

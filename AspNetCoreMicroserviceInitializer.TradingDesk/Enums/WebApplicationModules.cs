@@ -28,6 +28,44 @@ public enum WebApplicationModules
     Settings = 0,
 
     /// <summary>
+    /// Модуль добавления в приложение модуля для работы с Sql базами данных.
+    ///
+    /// Для корректной работы данного модуля необходимо:
+    /// 1. Создать модели <see cref="DbContext"/>.
+    /// 2. Создать репозитории для работы с <see cref="DbContext"/>.
+    /// 3. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
+    /// 4. Присвоить моделям репозиториев <see cref="AutoRegisterRepositoryAttribute"/>.
+    /// </summary>
+    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибуты <see cref="AutoRegisterDbContextAttribute"/> и <see cref="AutoRegisterRepositoryAttribute"/> (регистрация репозиториев производится как AddScoped).</remarks>
+    SqlDatabase = 1,
+
+    /// <summary>
+    /// Модуль базы данных MongoDb.
+    /// 
+    /// Для корректной работы модуля необходимо:
+    /// 1. Создать модели репозиториев, унаследованных от MongoRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="MongoSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек MongoDb в файле appsettings.json.
+    /// </summary>
+    MongoDatabase = 2,
+
+    /// <summary>
+    /// Модуль базы данных Redis.
+    /// 1. Создать модели репозиториев, унаследованных от RedisRepositoryBase.cs
+    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="RedisSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
+    /// 3. Создать автоматически или заполнить вручную модели настроек Redis в файле appsettings.json.
+    /// </summary>
+    RedisDatabase = 3,
+
+    /// <summary>
+    /// Модуль Serilog.
+    /// 
+    /// Настроить модуль можно в конфиге appsettings.json. Базовый конфиг для настроек Serilog можно проинициализировать, используя метод .InitBaseConfig() у WebApplicationFacade.
+    /// Обратиться к логгеру можно как используя интерфейс <see cref="ILogger{TCategoryName}"/>, так и используя статический класс <see cref="Serilog.Log"/>.
+    /// </summary>
+    Serilog = 4,
+
+    /// <summary>
     /// Модуль для автоматической регистрации сервисов.
     /// 
     /// Для корректной работы данного модуля необходимо:
@@ -38,45 +76,7 @@ public enum WebApplicationModules
     /// и переопределить в созданном сервисе метод <see cref="ServiceBase.ImplementationFactory"/>.
     /// необходимо
     /// </remarks>
-    Services = 1,
-
-    /// <summary>
-    /// Модуль добавления в приложение модуля для работы с Sql базами данных.
-    ///
-    /// Для корректной работы данного модуля необходимо:
-    /// 1. Создать модели <see cref="DbContext"/>.
-    /// 2. Создать репозитории для работы с <see cref="DbContext"/>.
-    /// 3. Присвоить моделям <see cref="DbContext"/> атрибут <see cref="AutoRegisterDbContextAttribute"/>.
-    /// 4. Присвоить моделям репозиториев <see cref="AutoRegisterRepositoryAttribute"/>.
-    /// </summary>
-    /// <remarks>Регистрация моделей будет произведена автоматически, используя атрибуты <see cref="AutoRegisterDbContextAttribute"/> и <see cref="AutoRegisterRepositoryAttribute"/> (регистрация репозиториев производится как AddScoped).</remarks>
-    SqlDatabase = 2,
-
-    /// <summary>
-    /// Модуль базы данных MongoDb.
-    /// 
-    /// Для корректной работы модуля необходимо:
-    /// 1. Создать модели репозиториев, унаследованных от MongoRepositoryBase.cs
-    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="MongoSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
-    /// 3. Создать автоматически или заполнить вручную модели настроек MongoDb в файле appsettings.json.
-    /// </summary>
-    MongoDatabase = 3,
-
-    /// <summary>
-    /// Модуль базы данных Redis.
-    /// 1. Создать модели репозиториев, унаследованных от RedisRepositoryBase.cs
-    /// 2. Создать модели настроек для каждого репозитория. Модели необходимо унаследовать от <see cref="RedisSettingsBase"/> и присвоить им атрибут <see cref="AutoRegisterConfigSettingsAttribute"/>.
-    /// 3. Создать автоматически или заполнить вручную модели настроек Redis в файле appsettings.json.
-    /// </summary>
-    RedisDatabase = 4,
-
-    /// <summary>
-    /// Модуль Serilog.
-    /// 
-    /// Настроить модуль можно в конфиге appsettings.json. Базовый конфиг для настроек Serilog можно проинициализировать, используя метод .InitBaseConfig() у WebApplicationFacade.
-    /// Обратиться к логгеру можно как используя интерфейс <see cref="ILogger{TCategoryName}"/>, так и используя статический класс <see cref="Serilog.Log"/>.
-    /// </summary>
-    Serilog = 5,
+    Services = 5,
 
     /// <summary>
     /// Модуль автоматической регистрации <see cref="AutoMapper"/>.
